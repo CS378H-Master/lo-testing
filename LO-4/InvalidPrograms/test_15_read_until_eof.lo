@@ -1,0 +1,20 @@
+// good test case
+// Loop reading input lines via in.read_string() with in.eof() guard until EOF
+// main method return value: 0
+
+class Main () {
+    int main() {
+        int count;
+        count = 0;
+        while ( ( ! in.eof() ) ) {
+            String line;
+            line = in.read_string();
+            out.print_string(line);
+            out.println();
+            count = (count + 1);
+        }
+        out.print_int(count);
+        out.println();
+        return 0;
+    }
+}

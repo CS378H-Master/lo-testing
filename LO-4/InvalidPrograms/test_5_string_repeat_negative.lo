@@ -1,0 +1,12 @@
+// runtime abort test case
+// String repeat with negative count
+// expected exit code: 120
+// expected stderr substring: lo_string_repeat: negative count
+
+class Main () {
+    int main() {
+        String s;
+        s = ("ab" * (~3));
+        return 0;
+    }
+}

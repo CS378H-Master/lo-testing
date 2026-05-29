@@ -1,0 +1,13 @@
+// bad test case
+// Cast target type is not a class type
+// expected compile error: E_CAST_TARGET_NOT_CLASS
+
+class Main () {
+    int main() {
+        String s;
+        s = "hello";
+        int n;
+        n = (int) s;
+        return n;
+    }
+}

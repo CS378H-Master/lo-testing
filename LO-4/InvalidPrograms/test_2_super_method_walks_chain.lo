@@ -1,0 +1,32 @@
+// good test case
+// super.method() walks the static parent chain through a non-overriding ancestor
+// main method return value: 123
+
+class Main () {
+    int main() {
+        Triangle t;
+        t = new Triangle();
+        return t.shape_id();
+    }
+}
+
+class Shape ( ) [ Shape() { ; } ] {
+    int shape_id() { return 100; }
+}
+
+class Polygon ( int sides; ) extends Shape [
+    Polygon(int s) {
+        super();
+        sides = s;
+    }
+] {
+    int getSides() { return sides; }
+}
+
+class Triangle ( ) extends Polygon [
+    Triangle() { super(3); }
+] {
+    int shape_id() {
+        return (super.shape_id() + 23);
+    }
+}

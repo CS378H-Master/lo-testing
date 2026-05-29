@@ -1,0 +1,22 @@
+// good test case
+// Three constructors with this(...) delegation chain
+// main method return value: 11
+
+class Main () {
+    int main() {
+        Cake c;
+        c = new Cake();
+        return c.total();
+    }
+}
+
+class Cake ( int layers; int candles; ) [
+    Cake() { this(5); }
+    Cake(int n) { this(n, 6); }
+    Cake(int n, int c) {
+        layers = n;
+        candles = c;
+    }
+] {
+    int total() { return (layers + candles); }
+}

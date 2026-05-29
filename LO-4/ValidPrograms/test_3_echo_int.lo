@@ -1,0 +1,13 @@
+// good test case
+// IO read/write round trip - read int, double, print
+// main method return value: 0
+
+class Main () {
+    int main() {
+        int n;
+        n = in.read_int();
+        out.print_int((n * 2));
+        out.println();
+        return 0;
+    }
+}

@@ -1,0 +1,22 @@
+// bad test case
+// Child class redeclares parent's field name
+// expected compile error: E_FIELD_SHADOWING
+
+class Parent ( int x; ) [
+    Parent(int v) { x = v; }
+] { }
+
+class Child ( int x; ) extends Parent [
+    Child(int v1, int v2) {
+        super(v1);
+        x = v2;
+    }
+] { }
+
+class Main () {
+    int main() {
+        Child c;
+        c = new Child(1, 2);
+        return 0;
+    }
+}

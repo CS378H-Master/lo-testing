@@ -1,0 +1,25 @@
+// good test case
+// Variable typed as parent holds child; method dispatches to child's override
+// main method return value: 5
+
+class Main () {
+    int main() {
+        Animal a1;
+        Animal a2;
+        a1 = new Dog();
+        a2 = new Cat();
+        return (a1.speak() + a2.speak());
+    }
+}
+
+class Animal ( ) [ Animal() { ; } ] {
+    int speak() { return 1; }
+}
+
+class Dog ( ) extends Animal [ Dog() { super(); } ] {
+    int speak() { return 2; }
+}
+
+class Cat ( ) extends Animal [ Cat() { super(); } ] {
+    int speak() { return 3; }
+}

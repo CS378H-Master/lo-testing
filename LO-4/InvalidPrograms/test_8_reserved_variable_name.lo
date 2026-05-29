@@ -1,0 +1,11 @@
+// bad test case
+// User declares a local variable named "out" (reserved as program-scope pre-bound)
+// expected compile error: E_RESERVED_VARIABLE_NAME
+
+class Main () {
+    int main() {
+        int out;
+        out = 42;
+        return out;
+    }
+}

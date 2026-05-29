@@ -1,0 +1,25 @@
+// good test case
+// super.method() basic case - parent declares method directly
+// main method return value: 35
+
+class Main () {
+    int main() {
+        Dog d;
+        d = new Dog(5);
+        return d.compute_age();
+    }
+}
+
+class Animal ( int age; ) [
+    Animal(int a) { age = a; }
+] {
+    int compute_age() { return age; }
+}
+
+class Dog ( ) extends Animal [
+    Dog(int a) { super(a); }
+] {
+    int compute_age() {
+        return (super.compute_age() * 7);
+    }
+}

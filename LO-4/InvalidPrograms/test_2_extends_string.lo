@@ -1,0 +1,15 @@
+// bad test case
+// Class extending String prohibited
+// expected compile error: E_EXTENDS_NON_CLASS
+
+class FancyString ( ) extends String [
+    FancyString() { ; }
+] {
+    int describe() { return 1; }
+}
+
+class Main () {
+    int main() {
+        return 0;
+    }
+}

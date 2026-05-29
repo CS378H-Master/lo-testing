@@ -1,0 +1,27 @@
+// good test case
+// (x instanceof T) returns false when T is unrelated to x's runtime class
+// main method return value: 99
+
+class Main () {
+    int main() {
+        Animal a;
+        a = new Dog();
+        if ( (a instanceof Cat) ) {
+            return 0;
+        } else {
+            return 99;
+        }
+    }
+}
+
+class Animal ( ) [ Animal() { ; } ] {
+    int type() { return 1; }
+}
+
+class Dog ( ) extends Animal [ Dog() { super(); } ] {
+    int bark() { return 1; }
+}
+
+class Cat ( ) extends Animal [ Cat() { super(); } ] {
+    int meow() { return 1; }
+}

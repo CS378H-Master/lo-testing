@@ -1,0 +1,15 @@
+// good test case
+// String reverse via ~ unop operates on UTF-8 codepoints (not bytes)
+// main method return value: 1
+
+class Main () {
+    int main() {
+        String s;
+        s = (~ "café");
+        if ( (s = "éfac") ) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}

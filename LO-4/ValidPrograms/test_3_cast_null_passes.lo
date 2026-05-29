@@ -1,0 +1,27 @@
+// good test case
+// (T) null passes the runtime cast check without aborting
+// main method return value: 1
+
+class Main () {
+    int main() {
+        Animal a;
+        a = null;
+        Dog d;
+        d = (Dog) a;
+        if ( ( d = null ) ) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+
+class Animal ( ) [ Animal() { ; } ] {
+    int who() { return 1; }
+}
+
+class Dog ( ) extends Animal [
+    Dog() { super(); }
+] {
+    int bark() { return 2; }
+}

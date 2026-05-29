@@ -1,0 +1,11 @@
+// good test case
+// IO output - hello world via pre-bound out
+// main method return value: 0
+
+class Main () {
+    int main() {
+        out.print_string("hello, world");
+        out.println();
+        return 0;
+    }
+}

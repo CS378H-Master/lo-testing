@@ -1,0 +1,24 @@
+// good test case
+// Class-typed field uninitialized in constructor defaults to null
+// main method return value: 42
+
+class Holder ( Holder next; int value; ) [
+    Holder(int v) { value = v; }
+] {
+    Holder getNext() { return next; }
+    int getValue() { return value; }
+}
+
+class Main () {
+    int main() {
+        Holder h;
+        Holder n;
+        h = new Holder(42);
+        n = h.getNext();
+        if ( (n = null) ) {
+            return h.getValue();
+        } else {
+            return 0;
+        }
+    }
+}
