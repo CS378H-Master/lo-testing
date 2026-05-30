@@ -1,7 +1,7 @@
 // bad test case
-// static methods are not allowed
-// expected compile error: E_UNKNOWN_VARIABLE
-// Author: Tyler Collins (Summer 2022)
+// Main has a non-empty field list, so it has no zero-arg constructor for the entry point
+// expected compile error: E_MAIN_NO_ZERO_ARG_CONSTRUCTOR
+// Author: CS 378H course staff (Fall 2026)
 
 class room(int length, breadth, height;) [
     room(){
@@ -18,11 +18,10 @@ class room(int length, breadth, height;) [
     }
 }
 
-class Main() {
+class Main(room r;) {
     int main(){
-        room r;
         r = new room();
-        return Main.getArea(r);
+        return this.getArea(r);
     }
     int getArea(room r) {
         return (r.getLength() * r.getBreadth());
