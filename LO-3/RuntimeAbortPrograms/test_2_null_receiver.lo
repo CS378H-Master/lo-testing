@@ -1,0 +1,33 @@
+// runtime abort test case
+// Method dispatch on a null receiver (a field left at its null default) aborts at runtime
+// expected exit code: 102
+// expected stderr substring: lo_abort_null_receiver: cannot dispatch getValue
+// Author: CS 378H course staff (Fall 2026)
+
+class Main() {
+    int main(){
+        Box b;
+        b = new Box();
+        return b.peek();
+    }
+}
+
+class Box(Holder h;) [
+    Box() {
+        ;
+    }
+] {
+    int peek() {
+        return h.getValue();
+    }
+}
+
+class Holder(int v;) [
+    Holder(int x) {
+        v = x;
+    }
+] {
+    int getValue() {
+        return v;
+    }
+}
