@@ -1,10 +1,8 @@
 // Missing operand
 
 bool main(){
-  int a, b;
-  {
+    int a, b;
     a = 96;
     b = 56;
     return ((a = 1) ? b : );
-  }
 }

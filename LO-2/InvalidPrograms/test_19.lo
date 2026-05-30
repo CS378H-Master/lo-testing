@@ -1,7 +1,5 @@
 // Missing type on main declaration
 
 main() {
-    {
-        return 0;
-    }
+    return 0;
 }

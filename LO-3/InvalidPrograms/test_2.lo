@@ -4,26 +4,19 @@
 
 class Main() {
     int main(){
-        {
-            return new Adder(5).add(6).add(7).getValue();
-        }
+        return new Adder(5).add(6).add(7).getValue();
     }
 }
 
-class Adder(int val;){
-    void Adder(int value){
-        {
-            val = value;
-        }
+class Adder(int val;) [
+    Adder(int value){
+        val = value;
     }
-
+] {
     Adder add(int addVal){
-        {return new Adder((val+addVal));}
+        return new Adder((val+addVal));
     }
-
     int getValue(){
-        {
-            return val;
-        }
+        return val;
     }
 }

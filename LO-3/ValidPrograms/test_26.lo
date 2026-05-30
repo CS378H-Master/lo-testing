@@ -2,33 +2,24 @@
 // main method return value:  4
 // Author: (Fall 2021)
 
-class circle(int radius;) {
-      void circle(int data){
-          {
-                radius = data;
-          }
-      }
-
-      circle getCircle() {
-             {
-                  return this;
-            }
-      }
-
-      int getRadius(){
-            {
-                return radius;
-            }
-      }
+class circle(int radius;) [
+    circle(int data){
+        radius = data;
+    }
+] {
+    circle getCircle() {
+        return this;
+    }
+    int getRadius(){
+        return radius;
+    }
 }
 
 class Main() {
     int main() {
         circle c, d;
-        {
-            c = new circle(4);
-            d = c.getCircle();
-            return d.getRadius();
-        }
+        c = new circle(4);
+        d = c.getCircle();
+        return d.getRadius();
     }
 }

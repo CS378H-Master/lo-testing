@@ -5,18 +5,14 @@
 
 int main() {
     int a;
-    {
-     a = 0;
-
-     if ((a=0)) {
+    a = 0;
+    if ((a=0)) {
         while((a<5)){
-           a = (a+1);
+            a = (a+1);
         }
-     }
-     else {
-	;
-     }
-
-     return a;
-     }
+    }
+    else {
+        ;
+    }
+    return a;
 }

@@ -3,33 +3,26 @@
 // main method return value:  16
 // Author: (Fall 2021)
 
-class square(int length; String name;) {
-
-  void square(int data){
-    {
-      length = data;
-	  name= "xyz";
+class square(int length; String name;) [
+    square(int data){
+        length = data;
+        name= "xyz";
     }
-  }
-     int getArea() {
-         {
-          return (length * length);
-        }
-     }
-
-     String getName() {
-         {return name;}
-     }
+] {
+    int getArea() {
+        return (length * length);
+    }
+    String getName() {
+        return name;
+    }
 }
 
 class Main(square s;) {
-      square get() {
-        {return s;}
-      }
-      int main(){
-        {
-          s = new square(4);
-          return s.getArea();
-        }
-      }
+    square get() {
+        return s;
+    }
+    int main(){
+        s = new square(4);
+        return s.getArea();
+    }
 }

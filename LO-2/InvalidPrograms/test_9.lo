@@ -1,15 +1,11 @@
 // invoke non-defined method
 
 int foo() {
-    {
-        return 0;
-    }
+    return 0;
 }
 
 int main() {
     int a;
-    {
-      a = goo();
-      return a;
-    }
+    a = goo();
+    return a;
 }

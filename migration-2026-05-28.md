@@ -1,6 +1,6 @@
 # Test Corpus Migration — 2026-05-28
 
-This document specifies the mechanical migration that brings the existing pre-redesign LO-2 and LO-3 test corpora into conformance with the **B-wide** brace-shape decision locked in `cs378h:state-ledger.md` under "Method and constructor body shape — Locked 2026-05-28".
+This document specifies the mechanical migration that brings the existing pre-redesign LO-2 and LO-3 test corpora into conformance with the **B-wide** brace-shape decision locked in `planning:state-ledger.md` under "Method and constructor body shape — Locked 2026-05-28".
 
 Under the prior canonical grammar, `<MethodDecl>` had the form `<Type> <MethodName> ( <Formals>? ) { <Body> }` where `<Body> → (<VarDecl>)* <Block>` and `<Block> → { (<Stmt>)+ }`. A method body with no var-decls therefore contained two brace pairs:
 
@@ -184,16 +184,15 @@ After applying the migration to a file:
 - For ValidPrograms tests, the header's `// main method return value: N` (or `expected.out` byte sequence) remains the correctness criterion.
 - For InvalidPrograms tests, the header's `// expected compile error: E_...` remains the correctness criterion; the bug being demonstrated by the test is preserved through the migration.
 
-## Status of the migration in this directory
+## Status of the migration
 
-Worked-example migrations applied 2026-05-28 (these files are the result of applying the recipe to the corresponding pre-redesign source):
-
-- `LO-2/ValidPrograms/test_48.lo`, `test_86.lo`, `test_88.lo`
-- `LO-2/InvalidPrograms/test_3.lo`, `test_8.lo`, `test_11.lo`
-- `LO-3/ValidPrograms/test_15.lo`, `test_18.lo`, `test_20.lo`, `test_21.lo`, `test_22.lo`, `test_36.lo`
-- `LO-3/InvalidPrograms/test_4.lo`, `test_8.lo`
-
-Pre-redesign tests not yet migrated remain in the source repository in their original form. Applying the recipe above (or implementing it as a script and running it against the corpus) brings them to current-grammar conformance.
+The full pre-redesign LO-2 and LO-3 corpus was migrated by the WS-4 (B) pass on
+2026-05-29 (`tools/migrate_braces.py`, PR #3): 147 files migrated, 5 already-new-form
+no-ops. An earlier draft of this section listed 14 "already migrated" worked
+examples; that was inaccurate — only 3 were actually on disk in migrated form
+(`LO-3/ValidPrograms/test_18.lo`, `LO-3/InvalidPrograms/test_4.lo`, `test_8.lo`), and
+those served as the regression anchors for this pass. LO-4 is written directly in
+redesigned form and was untouched.
 
 ## Pre-redesign tests reviewed and annotated (error-code retrofit, started 2026-05-29)
 

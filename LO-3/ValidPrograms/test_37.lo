@@ -7,25 +7,20 @@ class Main() {
     int main(){
         Main x;
         int i;
-        {
-            i = 0;
-            x = this;
-            while(true){
-                if(x.isGreaterThanEight(i)) {
-                    break;
-                }
-                else {
-                    ;
-                }
-                i = (i + 1);
+        i = 0;
+        x = this;
+        while(true){
+            if(x.isGreaterThanEight(i)) {
+                break;
             }
-            return i;
+            else {
+                ;
+            }
+            i = (i + 1);
         }
+        return i;
     }
-
     bool isGreaterThanEight(int i){
-        {
-            return (i > 8);
-        }
+        return (i > 8);
     }
 }

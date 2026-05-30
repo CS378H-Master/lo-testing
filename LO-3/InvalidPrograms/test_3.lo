@@ -4,30 +4,22 @@
 
 class Main() {
     int main(){
-    Counter counter;
-        {
-            counter = new Counter(5);
-            counter.add(10)
-            return counter.getValue();
-        }
+        Counter counter;
+        counter = new Counter(5);
+        counter.add(10)
+        return counter.getValue();
     }
-
 }
 
-class Counter(int val;){
-    void Counter(int value){
-        {
-            val = value;
-        }
+class Counter(int val;) [
+    Counter(int value){
+        val = value;
     }
-
+] {
     void add(int addVal){
-        {val = val + addVal;}
+        val = val + addVal;
     }
-
     int getValue(){
-        {
-            return val;
-        }
+        return val;
     }
 }

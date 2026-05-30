@@ -4,21 +4,16 @@
 // Author: Fall 2021 TAs
 
 int foo(int a) {
-  int b;
-  {
+    int b;
     b=0;
     while((a>0)) {
-       b = (a+10);
-       a = (a-1);
-       break;
+        b = (a+10);
+        a = (a-1);
+        break;
     }
-
     return b;
-   }
 }
 
 int main() {
-    {
-     return foo(5);
-    }
+    return foo(5);
 }

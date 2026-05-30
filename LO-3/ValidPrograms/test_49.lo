@@ -3,49 +3,29 @@
 // main method return value:  36
 // Author: Tyler Collins (Summer 2022)
 
-class Calculator(int result;) {
-    void Calculator(int initialResult) {
-        {
-            result = initialResult;
-        }
+class Calculator(int result;) [
+    Calculator(int initialResult) {
+        result = initialResult;
     }
-
+] {
     int add(int a) {
-        {
-            result = (result + a);
-
-            return 0;
-        }
+        result = (result + a);
+        return 0;
     }
-
     int times(int a) {
-        {
-            result = (result * a);
-
-            return 0;
-        }
+        result = (result * a);
+        return 0;
     }
-
     int div(int a) {
-        {
-            result = (result / a);
-
-            return 0;
-        }
+        result = (result / a);
+        return 0;
     }
-
     int sub(int a) {
-        {
-            result = (result - a);
-
-            return 0;
-        }
+        result = (result - a);
+        return 0;
     }
-
     int getResult() {
-        {
-            return result;
-        }
+        return result;
     }
 }
 
@@ -53,19 +33,15 @@ class Main() {
     int main() {
         int indicator;
         Calculator calc;
-        {
-            calc = new Calculator(13);
-
-            indicator = calc.add(10);
-            if ((indicator = 0)) {
-                indicator = calc.add(5);
-            } else {
-                indicator = calc.add(6);
-            }
-            indicator = calc.div(3);
-            indicator = calc.times(4);
-
-            return calc.getResult();
+        calc = new Calculator(13);
+        indicator = calc.add(10);
+        if ((indicator = 0)) {
+            indicator = calc.add(5);
+        } else {
+            indicator = calc.add(6);
         }
+        indicator = calc.div(3);
+        indicator = calc.times(4);
+        return calc.getResult();
     }
 }

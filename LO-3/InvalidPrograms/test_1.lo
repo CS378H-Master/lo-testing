@@ -5,9 +5,7 @@
 class Main() {
     int main(){
         int this;
-        {
-            this = 5;
-            return this;
-        }
+        this = 5;
+        return this;
     }
 }

@@ -3,31 +3,25 @@
 // main method return value:  7
 // Author: Shivi Agarwal (Fall 2021)
 
-class Calculator(int option;) {
-    void Calculator(int op) {
-        {
-            option = op;
-        }
+class Calculator(int option;) [
+    Calculator(int op) {
+        option = op;
     }
-
+] {
     int calc(){
-        {
-            if ((option=1)) {
-                return (3+4);
-            } else {
-                return (4-3);
-            }
-            return (1000);
+        if ((option=1)) {
+            return (3+4);
+        } else {
+            return (4-3);
         }
+        return (1000);
     }
 }
-  
+
 class Main() {
     int main() {
         Calculator c;
-        {
-            c = new Calculator (1);
-            return c.calc();
-        }
+        c = new Calculator (1);
+        return c.calc();
     }
 }

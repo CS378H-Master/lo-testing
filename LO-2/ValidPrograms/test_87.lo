@@ -6,11 +6,9 @@
 
 int main() {
     String a, b, c;
-  {
     a = "test";
     b = (~a);
     c = "tset";
-
     if ((a = b)) {
         return 31;
     } else {
@@ -18,8 +16,5 @@ int main() {
             return 72;
         } else { ; }
     }
-
     return (~1);
-  }
 }
-
