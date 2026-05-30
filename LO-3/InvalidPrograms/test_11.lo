@@ -1,5 +1,6 @@
 // bad test case
 // missing Main class
+// expected compile error: E_NO_MAIN_CLASS
 // Author: Tyler Collins (Summer 2022)
 
 class room(int length, breadth, height;) [

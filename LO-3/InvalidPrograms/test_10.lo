@@ -1,5 +1,6 @@
 // bad test case
 // Undeclared class variable
+// expected compile error: E_UNKNOWN_VARIABLE
 // Author: Tyler Collins (Summer 2022)
 
 class Calculator() [

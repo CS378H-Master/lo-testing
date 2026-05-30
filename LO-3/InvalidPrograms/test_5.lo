@@ -1,5 +1,6 @@
 // bad test case
 // Call a method from null
+// expected compile error: E_NULL_LITERAL_RECEIVER
 // Author: Aaron Wollman (Summer 2021)
 
 class Main() {
