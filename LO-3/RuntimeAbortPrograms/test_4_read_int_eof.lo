@@ -1,0 +1,13 @@
+// runtime abort test case
+// read_int with no input (immediate end-of-input) aborts at runtime
+// expected exit code: 111
+// expected stderr substring: lo_read_int: end of input
+// Author: CS 378H course staff (Fall 2026)
+
+class Main() {
+    int main(){
+        int n;
+        n = in.read_int();
+        return n;
+    }
+}

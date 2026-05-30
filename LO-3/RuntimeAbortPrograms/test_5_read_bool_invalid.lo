@@ -1,0 +1,13 @@
+// runtime abort test case
+// read_bool on a token other than true/false aborts at runtime
+// expected exit code: 112
+// expected stderr substring: lo_read_bool: invalid token
+// Author: CS 378H course staff (Fall 2026)
+
+class Main() {
+    int main(){
+        bool b;
+        b = in.read_bool();
+        return (b ? 1 : 0);
+    }
+}

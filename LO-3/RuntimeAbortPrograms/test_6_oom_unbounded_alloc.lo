@@ -1,0 +1,26 @@
+// runtime abort test case
+// Unbounded reachable allocation exhausts the heap (no garbage to reclaim)
+// expected exit code: 137
+// expected stderr substring: lo_alloc: out of memory
+// Author: CS 378H course staff (Fall 2026)
+
+class Node(Node next;) [
+    Node(Node n) {
+        next = n;
+    }
+] {
+    int ping() {
+        return 1;
+    }
+}
+
+class Main() {
+    int main(){
+        Node head;
+        head = null;
+        while (true) {
+            head = new Node(head);
+        }
+        return 0;
+    }
+}

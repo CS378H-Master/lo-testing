@@ -123,13 +123,15 @@ $ grep -q "lo_cast_check: cannot cast Dog to Cat" abort_stderr
 
 ## Current state
 
-As of 2026-05-29, the suite covers:
+As of 2026-05-30, the suite covers:
 
 - `LO-2/` — existing tests from prior offerings, **now fully migrated** to the B-wide brace-shape (locked 2026-05-28; see `migration-2026-05-28.md`). The systematic pass was applied by `tools/migrate_braces.py` (see `runbooks/ws4-corpus-migration.md`); all `ValidPrograms/` and `InvalidPrograms/` tests are in single-braced form. The transformation is purely syntactic — each test's computed result or triggered error is unchanged.
 - `LO-3/ValidPrograms/` — new tests written directly in the redesigned grammar, plus the pre-redesign tests **now fully migrated** (body-blocks stripped, explicit `void ClassName(...)` constructors relocated into `[ ]` sections).
 - `LO-3/InvalidPrograms/` — new tests, each carrying an `expected compile error:` line referencing a code in `error-codes.md`, plus pre-redesign tests **now fully migrated**. The worked examples `test_4.lo` (missing-`new` case) and `test_8.lo` (duplicate-class case) are annotated; the remaining pre-redesign InvalidPrograms tests carry no E-code annotation — retrofitting codes is a separate (A) pass following this brace migration.
 - `LO-4/ValidPrograms/` — new tests covering inheritance basics, constructor chains, polymorphic dispatch, casts, `instanceof`, and same-name methods across unrelated classes. Written directly in redesigned form; not part of the migration.
-- `LO-4/InvalidPrograms/` — new tests covering field shadowing, extends-non-class, inheritance cycle, missing constructor, super arity, super in root, delegation-not-first, super-and-this-both, sibling cast, cast-to-non-class.
+- `LO-4/InvalidPrograms/` — new tests covering field shadowing, extends-non-class, inheritance cycle, missing constructor, super arity, super in root, delegation-not-first, super-and-this-both, cast-to-non-class.
+- `LO-3/RuntimeAbortPrograms/` — runtime-abort tests covering string-repeat-negative (120, re-leveled from LO-4 as it uses only LO-3 features), null-receiver dispatch on a null-default field (102), malformed `read_int` (110), `read_int` at EOF (111), invalid `read_bool` (112), and unbounded reachable allocation / OOM (137). Populated under WS-6.
+- `LO-4/RuntimeAbortPrograms/` — cast failure on a sibling downcast (101). LO-4 inherits LO-3's runtime-abort coverage; LO-3-reachable aborts are not duplicated here. Populated under WS-6.
 
 The mechanical migration recipe for the pre-redesign LO-2 and LO-3 corpora is in `migration-2026-05-28.md`, with worked-example before/after pairs and pseudocode; it is implemented as the idempotent, re-runnable `tools/migrate_braces.py`. The migration report (counts, flagged files) is in `runbooks/notes/`.
 

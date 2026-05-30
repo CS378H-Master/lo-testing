@@ -1,0 +1,13 @@
+// runtime abort test case
+// read_int on a non-integer token aborts at runtime
+// expected exit code: 110
+// expected stderr substring: lo_read_int: malformed token
+// Author: CS 378H course staff (Fall 2026)
+
+class Main() {
+    int main(){
+        int n;
+        n = in.read_int();
+        return n;
+    }
+}
