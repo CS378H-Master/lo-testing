@@ -1,5 +1,6 @@
 // bad test case
 // Method defined outside of class
+// expected compile error: E_PARSE_PHASE_OTHER
 // Author: Aaron Wollman (Summer 2021)
 
 int add(int a, int b){

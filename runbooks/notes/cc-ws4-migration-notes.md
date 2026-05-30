@@ -58,10 +58,13 @@ never reindented or altered. Migrated bodies are reindented to 4-space.
    procedural program (`int doSomethingCoolAndExciting(...)`, `int main()`) already in
    single-braced form — byte-for-byte the redesigned form of `LO-2/ValidPrograms/test_88.lo`.
    It parses as two top-level methods with no class and no `Main.main()` entry point, so
-   it does not fit the LO-3 ValidPrograms contract. The script left it **byte-identical**
-   (nothing structural to do) and flags it. **SC/DC decision:** relocate to `LO-2/` (it
-   duplicates the now-migrated `LO-2/ValidPrograms/test_88.lo`), delete as a stray, or
-   rewrite as a real LO-3 program. CC did not guess.
+   it does not fit the LO-3 ValidPrograms contract. The migration pass left it
+   **byte-identical** (nothing structural to do) and flagged it.
+   **RESOLVED (follow-up, 2026-05-30):** confirmed an exact duplicate of
+   `LO-2/ValidPrograms/test_88.lo` — identical 106-token significant-token stream and
+   byte-identical header (same description and `// Author: Aaron Wollman`). Per the
+   follow-up work order (clear exact dup → delete), `LO-3/ValidPrograms/test_88.lo` was
+   deleted with `git rm`.
 
 3. **`LO-3/InvalidPrograms/test_6.lo` — "Method defined outside of class".** Has a
    top-level `int add(int a, int b){…}` before `class Main`. This is the intentional

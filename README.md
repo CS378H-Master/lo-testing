@@ -136,6 +136,7 @@ The mechanical migration recipe for the pre-redesign LO-2 and LO-3 corpora is in
 > Migration note: the doc-recorded "worked example" migrations of 2026-05-28 had in
 > fact only landed on disk for `LO-3/{ValidPrograms/test_18, InvalidPrograms/test_4,
 > InvalidPrograms/test_8}` — the other listed files were still pre-redesign and were
-> migrated by this pass. `LO-3/ValidPrograms/test_88.lo` is a procedural (class-free)
-> LO-2 program already in new form, sitting in the LO-3 tree; it was left byte-identical
-> and is flagged for SC to relocate.
+> migrated by this pass. A stray `LO-3/ValidPrograms/test_88.lo` — a procedural
+> (class-free) LO-2 program with no `Main.main()` — was found to be an exact duplicate
+> (identical token stream and header) of `LO-2/ValidPrograms/test_88.lo` and was deleted
+> in the follow-up pass.
