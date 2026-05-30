@@ -1,5 +1,6 @@
-// bad test case
+// good test case
 // Call method directly from this
+// main method return value: 5
 // Author: Aaron Wollman (Summer 2021)
 
 class Main() {

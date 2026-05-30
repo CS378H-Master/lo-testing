@@ -1,5 +1,6 @@
 // bad test case
 // Inappropriate method chains
+// expected compile error: E_PARSE_PHASE_OTHER
 // Author: Aaron Wollman (Summer 2021)
 
 class Main() {

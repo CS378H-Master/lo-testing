@@ -1,5 +1,6 @@
 // bad test case
 // cannot use reserved words as identifiers
+// expected compile error: E_RESERVED_KEYWORD_AS_IDENTIFIER
 // Author: Tyler Collins (Summer 2022)
 
 class Main() {
