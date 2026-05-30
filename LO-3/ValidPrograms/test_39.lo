@@ -6,23 +6,19 @@
 class Main() {
     int main(){
         Integer a, b, c;
-        {
-            a = new Integer(12);
-            b = new Integer((~3));
-            c = ((b.getValue() < 0) ? a : b);
-            return c.getValue();
-        }
+        a = new Integer(12);
+        b = new Integer((~3));
+        c = ((b.getValue() < 0) ? a : b);
+        return c.getValue();
     }
 }
 
-class Integer(int val;){
-    void Integer(int value){
-        {
-            val = value;
-        }
+class Integer(int val;) [
+    Integer(int value){
+        val = value;
     }
-
+] {
     int getValue(){
-        {return val;}
+        return val;
     }
 }

@@ -4,9 +4,9 @@
 // Author: Fall 2021 TAs
 
 bool f () {
-    {return true;}
+    return true;
 }
 
 int main() {
-  {return (f()?1:(~1));}
+    return (f()?1:(~1));
 }

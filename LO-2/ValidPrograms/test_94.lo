@@ -6,12 +6,10 @@
 
 int main() {
     String a, b, c, d;
-  {
     a = "The rain in Spain falls";
     b = (~a);
     c = (a * 2);
     d = "ZZZZ";
-
     if ((a = b)) {
         return (~1);
     } else {
@@ -25,8 +23,5 @@ int main() {
             }
         }
     }
-
     return 703;
-  }
 }
-

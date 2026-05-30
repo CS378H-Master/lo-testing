@@ -4,16 +4,12 @@
 
 class Main() {
     int main(){
-        {
-            return 1;
-        }
+        return 1;
     }
 }
 
 class Main() {
     int main(){
-        {
-            return 5;
-        }
+        return 5;
     }
 }

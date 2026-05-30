@@ -4,14 +4,10 @@
 int main()
 {
     int a;
-    {
-       a = 5;
-       return foo(a);
-    }
+    a = 5;
+    return foo(a);
 }
 
 int Foo(int a) {
-    {
-        return a;
-    }
+    return a;
 }

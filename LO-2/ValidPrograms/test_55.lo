@@ -4,16 +4,12 @@
 // Author: Aaron Wollman
 
 String getStr(int foo, int bar, String useless, bool isUseless){
-  String b, c;
-  {
+    String b, c;
     return "easy as pie";
-  }
 }
 
 String main(){
-  String a;
-  {
+    String a;
     a = getStr(1, 2, "blah", false);
-	return (~a);
-  }
+    return (~a);
 }

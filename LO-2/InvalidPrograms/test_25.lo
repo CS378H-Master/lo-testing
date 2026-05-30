@@ -2,11 +2,8 @@
 
 int foo() {
     String a, b;
-
 }
 
 int main() {
-    {
-        return foo();
-    }
+    return foo();
 }

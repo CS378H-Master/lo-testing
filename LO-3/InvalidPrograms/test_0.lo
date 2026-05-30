@@ -5,25 +5,19 @@
 class Main() {
     int main(){
         Adder adder;
-        {
-            adder = new Adder(1,2,3);
-            return adder.add();
-        }
+        adder = new Adder(1,2,3);
+        return adder.add();
     }
 }
 
-class Adder(int a, int b, int c){
-    void Adder(int A, int B, int C){
-        {
-            a = A;
-            b = B;
-            c = C;
-        }
+class Adder(int a, int b, int c) [
+    Adder(int A, int B, int C){
+        a = A;
+        b = B;
+        c = C;
     }
-
+] {
     int add(){
-        {
-            return ((a + b)+c);
-        }
+        return ((a + b)+c);
     }
 }

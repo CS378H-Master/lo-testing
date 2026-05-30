@@ -3,27 +3,22 @@
 // main method return value:  70
 // Author: Isha Joshi (Fall 2021)
 
-class student(int rno, test1, test2;){
-	void student(){
-		{
-			rno = 112;
-			test1 = 40;
-			test2 = 30;
-		}
-	}
-	int total(){
-		{
-		    return (test1 + test2);
-		}
-	}
+class student(int rno, test1, test2;) [
+    student(){
+        rno = 112;
+        test1 = 40;
+        test2 = 30;
+    }
+] {
+    int total(){
+        return (test1 + test2);
+    }
 }
 
-class Main(){
-	int main(){
-		student s1;
-		{
-			s1 = new student();
-			return s1.total();
-		}
-	}
+class Main() {
+    int main(){
+        student s1;
+        s1 = new student();
+        return s1.total();
+    }
 }

@@ -4,17 +4,13 @@
 // Author: Aaron Wollman
 
 bool isEven(int value){
-  {
-	return ((((value % 2)) = 0) | ((!(true))));
-  }
+    return ((((value % 2)) = 0) | ((!(true))));
 }
 
 String main(){
-  String trueStr;
-  int value;
-  {
+    String trueStr;
+    int value;
     value = 21;
-	trueStr = "true";
-	return (((isEven((value))) ? trueStr : "false"));
-  }
+    trueStr = "true";
+    return (((isEven((value))) ? trueStr : "false"));
 }

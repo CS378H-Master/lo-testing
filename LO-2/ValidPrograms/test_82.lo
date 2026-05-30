@@ -5,21 +5,14 @@
 
 int main()
 {
-  String s, t, r;
-  {
+    String s, t, r;
     s = "Graduate";
     t = "Student";
     r = str_concat_fun ( s, t );
-
     return 0;
-  }
-     
 }
 
 String str_concat_fun ( String s, String t )
 {
-{
-return (s + t);
-}
-
+    return (s + t);
 }

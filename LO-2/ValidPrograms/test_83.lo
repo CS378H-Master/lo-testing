@@ -4,13 +4,9 @@
 // Author: Tyler Collins
 
 bool f () {
-    {
-        return (2 > 10);
-    }
+    return (2 > 10);
 }
 
 int main() {
-  {
     return (f() ? (5 - 5) : (~10) );
-  }
 }

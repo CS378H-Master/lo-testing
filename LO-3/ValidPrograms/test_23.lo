@@ -3,30 +3,24 @@
 // Author: Kaveri Mukundan (Fall 2021)
 
 class TestNode
-(int v; TestNode next;)
-{
-    void TestNode(int data) {
-        {
-            v = data;
-            next = null;
-        }
+(int v; TestNode next;) [
+    TestNode(int data) {
+        v = data;
+        next = null;
     }
-
+] {
     int getValue(){
-        {return v;}
+        return v;
     }
-
     void setValue(int data) {
-        {v = data;}
+        v = data;
     }
 }
 
 class Main() {
     int main() {
         TestNode t;
-        {
-            t = new TestNode (4);
-            return t.getValue();
-        }
+        t = new TestNode (4);
+        return t.getValue();
     }
 }

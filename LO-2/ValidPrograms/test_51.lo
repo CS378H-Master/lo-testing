@@ -5,12 +5,10 @@
 
 int main(){
     int a, b;
-    {
-        a=20;
-        b=10;
-        while ((b < a)) {
-            b = (b + 1);
-        }
-        return b;
+    a=20;
+    b=10;
+    while ((b < a)) {
+        b = (b + 1);
     }
+    return b;
 }

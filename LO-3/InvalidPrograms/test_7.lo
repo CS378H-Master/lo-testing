@@ -4,14 +4,9 @@
 
 class Main() {
     int main(){
-        {
-            return this.value();
-        }
+        return this.value();
     }
-
     int value(){
-        {
-            return 5;
-        }
+        return 5;
     }
 }

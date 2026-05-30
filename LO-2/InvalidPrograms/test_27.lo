@@ -4,19 +4,16 @@
 int main()
 {
     int a;
-    {
-      a = 5;
-      return foo(a);
-    }
+    a = 5;
+    return foo(a);
 }
 
 {
 }
+
 int foo(int a)
 {
-  int b;
-  {
-   b = ((((a+10)-10)*5)/5);
-   return b;
-  }
+    int b;
+    b = ((((a+10)-10)*5)/5);
+    return b;
 }

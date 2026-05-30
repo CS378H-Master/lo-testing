@@ -1,6 +1,6 @@
 # Test Corpus Migration — 2026-05-28
 
-This document specifies the mechanical migration that brings the existing pre-redesign LO-2 and LO-3 test corpora into conformance with the **B-wide** brace-shape decision locked in `cs378h:state-ledger.md` under "Method and constructor body shape — Locked 2026-05-28".
+This document specifies the mechanical migration that brings the existing pre-redesign LO-2 and LO-3 test corpora into conformance with the **B-wide** brace-shape decision locked in `planning:state-ledger.md` under "Method and constructor body shape — Locked 2026-05-28".
 
 Under the prior canonical grammar, `<MethodDecl>` had the form `<Type> <MethodName> ( <Formals>? ) { <Body> }` where `<Body> → (<VarDecl>)* <Block>` and `<Block> → { (<Stmt>)+ }`. A method body with no var-decls therefore contained two brace pairs:
 

@@ -6,11 +6,7 @@
 
 String main() {
     String a, b, c, d;
-  {
     a = "The rain in Spain falls";
     b = (~a);
-
     return a;
-  }
 }
-

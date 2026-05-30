@@ -5,21 +5,17 @@
 class Main() {
     int main(){
         MyClass a;
-        {
-            a = new MyClass();
-            return null.getValue();
-        }
+        a = new MyClass();
+        return null.getValue();
     }
 }
 
-class MyClass(){
-    void MyClass(){
-        {
-            ;
-        }
+class MyClass() [
+    MyClass(){
+        ;
     }
-
+] {
     int getValue(){
-        {return 5;}
+        return 5;
     }
 }

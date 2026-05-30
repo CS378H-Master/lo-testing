@@ -2,7 +2,5 @@
 
 main(int a){
     int b;
-    {
-        return true;
-    }
+    return true;
 }

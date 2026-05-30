@@ -79,7 +79,7 @@ The harness compiles the program, runs the binary (with `<test_name>.input.txt` 
 
 ## Conventions across categories
 
-**Tests use `int Main.main()` as the entry point** (or `int main()` for LO-2). The synthesized C-level `main` wrapper reads the LO entry method's return value and exits with that as its status. See `cs378h:lo-3-reference.md` §4.6.
+**Tests use `int Main.main()` as the entry point** (or `int main()` for LO-2). The synthesized C-level `main` wrapper reads the LO entry method's return value and exits with that as its status. See `planning:lo-3-reference.md` §4.6.
 
 **Tests minimize IO.** The conformance suite is primarily for the language; IO machinery (the pre-bound `in` / `out` / `err`) is exercised in a small set of dedicated tests (e.g., `LO-3/ValidPrograms/test_2_hello_world.lo`). Most tests communicate pass/fail through the exit code alone. Lower I/O dependence means each test is self-contained, faster to run, and easier to debug when something breaks in the toolchain.
 
@@ -123,14 +123,19 @@ $ grep -q "lo_cast_check: cannot cast Dog to Cat" abort_stderr
 
 ## Current state
 
-As of 2026-05-28, the suite covers:
+As of 2026-05-29, the suite covers:
 
-- `LO-2/` — existing tests from prior offerings, migrating to the B-wide brace-shape (locked 2026-05-28; see `migration-2026-05-28.md`). Six tests migrated as worked examples (`test_3.lo`, `test_8.lo`, `test_11.lo` under `InvalidPrograms/`; `test_48.lo`, `test_86.lo`, `test_88.lo` under `ValidPrograms/`). Remaining pre-redesign LO-2 tests stay in the source repo in their original (double-braced) form pending the systematic migration pass.
-- `LO-3/ValidPrograms/` — 15 new tests `test_1` through `test_15`, written directly in the redesigned grammar. Six pre-redesign tests migrated as worked examples for the redesigned grammar (`test_15.lo`, `test_18.lo`, `test_20.lo`, `test_21.lo`, `test_22.lo`, `test_36.lo`). Remaining pre-redesign LO-3 tests stay in the source repo in their original form pending the systematic migration pass.
-- `LO-3/InvalidPrograms/` — 9 new tests, each carrying an `expected compile error:` line referencing a code in `error-codes.md`. Two pre-redesign tests migrated as worked examples (`test_4.lo` missing-`new` case; `test_8.lo` duplicate-class case). Pre-redesign InvalidPrograms tests carry no E-code annotation in their original form; retrofitting codes is a separate workstream-internal pass following the brace migration.
-- `LO-3/RuntimeAbortPrograms/` — 5 new tests covering null-receiver dispatch, `read_int` EOF and malformed, `read_bool` malformed, `string_repeat` negative.
-- `LO-4/ValidPrograms/` — 13 new tests covering inheritance basics, constructor chains, polymorphic dispatch, casts, `instanceof`, and same-name methods across unrelated classes.
-- `LO-4/InvalidPrograms/` — 10 new tests covering field shadowing, extends-non-class, inheritance cycle, missing constructor, super arity, super in root, delegation-not-first, super-and-this-both, sibling cast, cast-to-non-class.
-- `LO-4/RuntimeAbortPrograms/` — 1 test for cast failure.
+- `LO-2/` — existing tests from prior offerings, **now fully migrated** to the B-wide brace-shape (locked 2026-05-28; see `migration-2026-05-28.md`). The systematic pass was applied by `tools/migrate_braces.py` (see `runbooks/ws4-corpus-migration.md`); all `ValidPrograms/` and `InvalidPrograms/` tests are in single-braced form. The transformation is purely syntactic — each test's computed result or triggered error is unchanged.
+- `LO-3/ValidPrograms/` — new tests written directly in the redesigned grammar, plus the pre-redesign tests **now fully migrated** (body-blocks stripped, explicit `void ClassName(...)` constructors relocated into `[ ]` sections).
+- `LO-3/InvalidPrograms/` — new tests, each carrying an `expected compile error:` line referencing a code in `error-codes.md`, plus pre-redesign tests **now fully migrated**. The worked examples `test_4.lo` (missing-`new` case) and `test_8.lo` (duplicate-class case) are annotated; the remaining pre-redesign InvalidPrograms tests carry no E-code annotation — retrofitting codes is a separate (A) pass following this brace migration.
+- `LO-4/ValidPrograms/` — new tests covering inheritance basics, constructor chains, polymorphic dispatch, casts, `instanceof`, and same-name methods across unrelated classes. Written directly in redesigned form; not part of the migration.
+- `LO-4/InvalidPrograms/` — new tests covering field shadowing, extends-non-class, inheritance cycle, missing constructor, super arity, super in root, delegation-not-first, super-and-this-both, sibling cast, cast-to-non-class.
 
-The mechanical migration recipe for the pre-redesign LO-2 and LO-3 corpora is in `migration-2026-05-28.md`, with worked-example before/after pairs and pseudocode that can be implemented as a script for systematic application.
+The mechanical migration recipe for the pre-redesign LO-2 and LO-3 corpora is in `migration-2026-05-28.md`, with worked-example before/after pairs and pseudocode; it is implemented as the idempotent, re-runnable `tools/migrate_braces.py`. The migration report (counts, flagged files) is in `runbooks/notes/`.
+
+> Migration note: the doc-recorded "worked example" migrations of 2026-05-28 had in
+> fact only landed on disk for `LO-3/{ValidPrograms/test_18, InvalidPrograms/test_4,
+> InvalidPrograms/test_8}` — the other listed files were still pre-redesign and were
+> migrated by this pass. `LO-3/ValidPrograms/test_88.lo` is a procedural (class-free)
+> LO-2 program already in new form, sitting in the LO-3 tree; it was left byte-identical
+> and is flagged for SC to relocate.

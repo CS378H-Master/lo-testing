@@ -7,65 +7,44 @@ class Main() {
     String main(){
         StringBuilder sb;
         bool indicator;
-        {
-            sb = new StringBuilder();
-
-            if((sb.isEmpty() | sb.append("abc"))){
-                indicator = sb.append("xYz");
-            }
-            else{
-                indicator = sb.append("123");
-            }
-
-            if(((!sb.reverse()) & sb.multiply(5))){
-                indicator = sb.multiply(0);
-            }
-            else{
-                indicator = sb.multiply(2);
-            }
-            return sb.getString();
+        sb = new StringBuilder();
+        if((sb.isEmpty() | sb.append("abc"))){
+            indicator = sb.append("xYz");
         }
+        else{
+            indicator = sb.append("123");
+        }
+        if(((!sb.reverse()) & sb.multiply(5))){
+            indicator = sb.multiply(0);
+        }
+        else{
+            indicator = sb.multiply(2);
+        }
+        return sb.getString();
     }
 }
 
-class StringBuilder(String value;){
-
-    void StringBuilder(){
-        {
-            value = "";
-        }
+class StringBuilder(String value;) [
+    StringBuilder(){
+        value = "";
     }
-
+] {
     bool isEmpty(){
-        {
-            return (value = "");
-        }
+        return (value = "");
     }
-
     bool append(String appValue){
-        {
-            value = (value + appValue);
-            return true;
-        }
+        value = (value + appValue);
+        return true;
     }
-
     bool multiply(int times){
-        {
-            value = (value * times);
-            return true;
-        }
+        value = (value * times);
+        return true;
     }
-
     bool reverse(){
-        {
-            value = (~value);
-            return true;
-        }
+        value = (~value);
+        return true;
     }
-
     String getString(){
-        {
-            return value;
-        }
+        return value;
     }
 }

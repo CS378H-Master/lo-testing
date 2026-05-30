@@ -1,19 +1,13 @@
 // Mismatching operand types from methods declared after usage
 
 bool main(){
-  {
     return (integerMethod() > stringMethod());
-  }
 }
 
 bool integerMethod() {
-    {
-        return false;
-    }
+    return false;
 }
 
 String stringMethod() {
-    {
-        return "1";
-    }
+    return "1";
 }

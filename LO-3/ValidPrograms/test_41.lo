@@ -8,49 +8,34 @@ class Main() {
         Condition condition;
         Waiter waiter;
         bool wait;
-        {
-            condition = new Condition();
-            waiter = new Waiter(condition);
-            wait = waiter.wait();
-
-            return condition.getState();
-        }
+        condition = new Condition();
+        waiter = new Waiter(condition);
+        wait = waiter.wait();
+        return condition.getState();
     }
 }
 
-class Condition(int state;) {
-    void Condition() {
-        {
-            state = 0;
-        }
+class Condition(int state;) [
+    Condition() {
+        state = 0;
     }
-
+] {
     bool check() {
-        {
-            state = (state + 1);
-            return (state < 71);
-        }
+        state = (state + 1);
+        return (state < 71);
     }
-
     int getState() {
-        {
-            return state;
-        }
+        return state;
     }
 }
 
-class Waiter(Condition condition;) {
-    void Waiter(Condition cond) {
-        {
-            condition = cond;
-        }
+class Waiter(Condition condition;) [
+    Waiter(Condition cond) {
+        condition = cond;
     }
-
+] {
     bool wait() {
-        {
-            while (condition.check()) { ; }
-
-            return true;
-        }
+        while (condition.check()) { ; }
+        return true;
     }
 }

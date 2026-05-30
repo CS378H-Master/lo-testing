@@ -4,9 +4,9 @@
 // Author: Fall 2021 TAs
 
 int f(int a, int b) {
-    {return (a + b);}
+    return (a + b);
 }
 
 int main() {
-  {return f(2, (3*4));}
+    return f(2, (3*4));
 }
