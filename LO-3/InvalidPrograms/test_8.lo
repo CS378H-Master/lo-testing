@@ -1,25 +1,24 @@
 // bad test case
 // Duplicate Classes
+// expected compile error: E_DUPLICATE_CLASS_NAME
 // Author: Aaron Wollman (Summer 2021)
 
-class A(){
-    void A(){
-        {
-            ;
-        }
+class A() [
+    A(){
+        ;
     }
+] {
 }
 
 class Main() {
     int main(){
-        {
-            return 1;
-        }
+        return 1;
     }
 }
 
-class A(){
-    void A(){
-        {;}
+class A() [
+    A(){
+        ;
     }
+] {
 }
