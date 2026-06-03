@@ -1,6 +1,7 @@
 // bad test case
-// Class extending String prohibited
-// expected compile error: E_EXTENDS_NON_CLASS
+// Class extending String prohibited. String is a type keyword, not a <ClassName>,
+// so this is rejected by the parser.
+// expected compile error: E_RESERVED_KEYWORD_AS_IDENTIFIER
 
 class FancyString ( ) extends String [
     FancyString() { ; }

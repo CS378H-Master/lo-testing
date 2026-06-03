@@ -1,5 +1,6 @@
 // bad test case
-// Constructor body contains both super(...) and this(...) calls
+// Constructor body contains both super(...) and this(...) delegations — the grammar admits
+// at most one delegation, as the optional first statement, so this is a parse error.
 // expected compile error: E_DELEGATION_BOTH_SUPER_AND_THIS
 
 class Parent ( int x; ) [
