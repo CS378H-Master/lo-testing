@@ -1,6 +1,7 @@
 // good test case
 // Point is in Rectangle
 // main method return value:  1
+// migrated 2026-06-03: int sentinel; success iff orig_main() is true
 // Author: Aaron Wollman (Summer 2021)
 
 class Point(int x, y;) [
@@ -18,10 +19,13 @@ class Point(int x, y;) [
 }
 
 class Main() {
-    bool main(){
+    bool orig_main(){
         Rectangle rec;
         rec = new Rectangle(new Point(10, 10), new Point(2, 2));
         return rec.contains(new Point(5, 5));
+    }
+    int main(){
+        return (this.orig_main() ? 1 : 0);
     }
 }
 
