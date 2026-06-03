@@ -1,6 +1,7 @@
 // *Good testcase*
 // Test string concat, short circuit on OR
-// main return value: "black cat"
+// main return value: 84
+// migrated 2026-06-03: int sentinel; success iff orig_main() == "black cat"
 // Author: Aaron Wollman
 
 String addCat(String str){
@@ -13,7 +14,7 @@ String addDog(String str){
     return str;
 }
 
-String main(){
+String orig_main(){
     String str;
     str = "black";
     if ((((("a" < str) | (str < "z")) | (str = "a")) | (str = "z"))) {
@@ -22,4 +23,8 @@ String main(){
         str = addDog(str);
     }
     return str;
+}
+
+int main() {
+    return ((orig_main() = "black cat") ? 84 : 0);
 }

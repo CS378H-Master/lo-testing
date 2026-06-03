@@ -1,9 +1,14 @@
 // *Good testcase*
 // String Operations
-// main return value: "tset a tsuj si sihTtset a tsuj si sihTright?"
+// main return value: 38
+// migrated 2026-06-03: int sentinel; success iff orig_main() == "tset a tsuj si sihTtset a tsuj si sihTright?"
 // Author: Tyler Collins
 
 
-String main() {
+String orig_main() {
     return ((((~"This is just a test") * 2) + "right?") + (" no." * (~10)));
+}
+
+int main() {
+    return ((orig_main() = "tset a tsuj si sihTtset a tsuj si sihTright?") ? 38 : 0);
 }

@@ -1,10 +1,11 @@
 // good test case
 // StringBuilder class and Short-Circuiting
-// main method return value:  "zYxzYx"
+// main method return value: 43
+// migrated 2026-06-03: int sentinel; success iff this.orig_main() == "zYxzYx"
 // Author: Aaron Wollman (Summer 2021)
 
 class Main() {
-    String main(){
+    String orig_main(){
         StringBuilder sb;
         bool indicator;
         sb = new StringBuilder();
@@ -21,6 +22,9 @@ class Main() {
             indicator = sb.multiply(2);
         }
         return sb.getString();
+    }
+    int main(){
+        return ((this.orig_main() = "zYxzYx") ? 43 : 0);
     }
 }
 
