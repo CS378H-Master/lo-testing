@@ -1,10 +1,11 @@
 // *Good testcase*
 // String Operations
-// main return value: "alternate result"
+// main return value: 64
+// migrated 2026-06-03: int sentinel; success iff orig_main() == "alternate result"
 // Author: Tyler Collins
 
 
-String main() {
+String orig_main() {
     return concatenator(concatenator("a", replicator("b", 5)), "c");
 }
 
@@ -21,4 +22,8 @@ String concatenator(String a, String b) {
         return (a + b);
     }
     return "";
+}
+
+int main() {
+    return ((orig_main() = "alternate result") ? 64 : 0);
 }

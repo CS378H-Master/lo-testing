@@ -1,9 +1,10 @@
 // *Good testcase*
 // Test string accumlation in while loop
-// main return value: "abcabcabcabcabcabcabcabcabc"
+// main return value: 34
+// migrated 2026-06-03: int sentinel; success iff orig_main() == "abcabcabcabcabcabcabcabcabc"
 // Author: Tyler Collins
 
-String main() {
+String orig_main() {
     String target, result;
     int counter;
     target = ("abc" * 10);
@@ -21,4 +22,8 @@ String main() {
 
 String accumulate(String result, String addend) {
     return (result + addend);
+}
+
+int main() {
+    return ((orig_main() = "abcabcabcabcabcabcabcabcabc") ? 34 : 0);
 }

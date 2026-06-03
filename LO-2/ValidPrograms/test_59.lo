@@ -1,14 +1,19 @@
 // *Good testcase*
 // String Operations
-// main return value: "zZZZsllaf niapS ni niar ehTZZZz"
+// main return value: 59
+// migrated 2026-06-03: int sentinel; success iff orig_main() == "zZZZsllaf niapS ni niar ehTZZZz"
 // Author: Tyler Collins
 
 
-String main() {
+String orig_main() {
     String a, b, c, d;
     a = "The rain in Spain falls";
     b = (~a);
     c = (a * 2);
     d = "zZZZ";
     return ((d + b) + (~d));
+}
+
+int main() {
+    return ((orig_main() = "zZZZsllaf niapS ni niar ehTZZZz") ? 59 : 0);
 }

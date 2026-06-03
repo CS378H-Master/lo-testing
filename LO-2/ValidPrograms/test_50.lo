@@ -1,6 +1,7 @@
 // *Good testcase*
 // Test string concat
-// main return value: "do Do Do do Do"
+// main return value: 50
+// migrated 2026-06-03: int sentinel; success iff orig_main() == "do Do Do do Do"
 // Author: Aaron Wollman
 
 
@@ -16,7 +17,7 @@ String addDo(String str, bool uppercaseD){
     return str;
 }
 
-String main(){
+String orig_main(){
     String str;
     int i;
     bool uppercaseD;
@@ -29,4 +30,8 @@ String main(){
         i = (i + 1);
     }
     return str;
+}
+
+int main() {
+    return ((orig_main() = "do Do Do do Do") ? 50 : 0);
 }

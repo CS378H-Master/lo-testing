@@ -1,6 +1,7 @@
 // *Good testcase*
 // Test useless formals and variables, string reversal
-// main return value: "halb!emosewa era sgnirts"
+// main return value: 57
+// migrated 2026-06-03: int sentinel; success iff orig_main() == "halb!emosewa era sgnirts"
 // Author: Tyler Collins
 
 String getStr(int foo, int bar, String useless, bool isUseless){
@@ -8,8 +9,12 @@ String getStr(int foo, int bar, String useless, bool isUseless){
     return ("strings are awesome!" + useless);
 }
 
-String main(){
+String orig_main(){
     String a;
     a = getStr(1, 2, "blah", false);
     return (~a);
+}
+
+int main() {
+    return ((orig_main() = "halb!emosewa era sgnirts") ? 57 : 0);
 }

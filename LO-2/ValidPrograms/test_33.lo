@@ -1,16 +1,21 @@
 // *Good testcase*
 // Test modulo, ternary
-// main return value: "false"
+// main return value: 33
+// migrated 2026-06-03: int sentinel; success iff orig_main() == "false"
 // Author: Aaron Wollman
 
 bool isEven(int value){
     return ((((value % 2)) = 0) | ((!(true))));
 }
 
-String main(){
+String orig_main(){
     String trueStr;
     int value;
     value = 21;
     trueStr = "true";
     return (((isEven((value))) ? trueStr : "false"));
+}
+
+int main() {
+    return ((orig_main() = "false") ? 33 : 0);
 }
