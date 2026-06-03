@@ -14,9 +14,12 @@ Organized by compiler phase. A given compile error must emit at least one of the
 
 | Code | Trigger |
 |------|---------|
-| `E_RESERVED_KEYWORD_AS_IDENTIFIER` | An LO reserved keyword (e.g., `this`, `super`, `null`, `new`, `instanceof`, `extends`) used as an identifier. |
+| `E_RESERVED_KEYWORD_AS_IDENTIFIER` | An LO reserved keyword used where an identifier is required — `this`, `super`, `null`, `new`, `instanceof`, `extends`, or a type keyword (`int`, `bool`, `String`, `void`). Most commonly a type keyword in `<ClassName>` position, e.g. `extends String`, `extends int`, or `class String`. |
 | `E_MALFORMED_CLASS_DECL` | A `<ClassDecl>` lacks one of its required sections, has them in the wrong order, or has empty `[ ]` brackets (constructor section must have at least one declaration when present). |
 | `E_MALFORMED_CONSTRUCTOR` | A constructor declaration whose name does not equal the enclosing class's name. |
+| `E_DELEGATION_BOTH_SUPER_AND_THIS` | A constructor body contains both a `super(...)` and a `this(...)` delegation. The grammar admits at most one delegation, only as the optional first statement, so a body with both is rejected during parsing. |
+| `E_DELEGATION_NOT_FIRST_STATEMENT` | A `super(...)` or `this(...)` delegation appears anywhere other than the optional first statement of a constructor body. The grammar admits the delegation prefix only in first position, so a misplaced delegation is rejected during parsing. |
+| `E_INVALID_UNICODE_ESCAPE` | A `\u{...}` string escape denotes a value that is not a Unicode scalar value — greater than `U+10FFFF`, or in the surrogate range `U+D800`–`U+DFFF`. |
 | `E_PARSE_PHASE_OTHER` | Parse or lexer failure not covered by a more specific category in this phase. The sentinel for the parse phase. |
 
 ### Well-formedness errors
@@ -42,7 +45,7 @@ Organized by compiler phase. A given compile error must emit at least one of the
 | `E_UNKNOWN_CLASS` | A class name appears in a type position, `new` expression, `extends` clause, cast, or `instanceof` without being declared anywhere in the program. |
 | `E_UNKNOWN_METHOD` | A method name appears in a method-invocation position and is not in the receiver's effective method set. |
 | `E_UNKNOWN_VARIABLE` | A bare identifier appears in expression position and resolves to no field, formal, local, or pre-bound name. |
-| `E_RESERVED_CLASS_NAME` | A class declaration uses a reserved class name (`Main` declared with `extends`, `Input`, `Output`, `String`, or any other reserved name). The `Main` class itself is permitted but must satisfy the entry-point shape. |
+| `E_RESERVED_CLASS_NAME` | A class declaration uses a reserved class *identifier* (`Input`, `Output`, or another reserved name; `Main` is permitted but must satisfy the entry-point shape). `String` is a type keyword, not an identifier, so a class named `String` is a parse error (`E_RESERVED_KEYWORD_AS_IDENTIFIER`), not this code. |
 | `E_RESERVED_VARIABLE_NAME` | A user declaration (field, formal, local) uses a reserved variable name (`in`, `out`, `err`). |
 | `E_THIS_OUTSIDE_INSTANCE` | The expression `this` appears outside a method or constructor body. |
 | `E_NAME_RESOLUTION_OTHER` | Name-resolution failure not covered by a more specific category in this phase. The sentinel for the name-resolution phase. |
@@ -61,6 +64,8 @@ Organized by compiler phase. A given compile error must emit at least one of the
 | `E_ARITY_MISMATCH` | A method call, `new`, `super(...)`, or `this(...)` provides a wrong number of actual arguments. |
 | `E_RECEIVER_NOT_CLASS_TYPE` | The receiver in a method-call expression has a non-class static type. |
 | `E_NULL_LITERAL_RECEIVER` | The receiver in a method-call expression is the literal `null` (statically detectable null dispatch). |
+| `E_NONVOID_CALL_AS_STATEMENT` | A method-call statement (P19) invokes a non-`void` method; LO requires a non-`void` result to be used, so it may not be discarded as a bare statement. |
+| `E_VOID_CALL_IN_EXPRESSION` | A call to a `void`-returning method appears in expression / value position; a `void` call may appear only as a call statement. |
 | `E_TYPE_CHECK_OTHER` | Type-check failure not covered by a more specific category in this phase. The sentinel for the type-check phase. |
 
 ### Inheritance-check errors (LO-4)
@@ -68,18 +73,17 @@ Organized by compiler phase. A given compile error must emit at least one of the
 | Code | Trigger |
 |------|---------|
 | `E_INHERITANCE_CYCLE` | A class declaration's `extends` chain transitively reaches the same class. |
-| `E_EXTENDS_NON_CLASS` | A class's `extends` clause names a non-class type (`int`, `bool`, `String`, `void`). The specific case of extending `String` is included here. |
 | `E_FIELD_SHADOWING` | A subclass declares a field whose name appears anywhere in an ancestor's effective fields. |
 | `E_OVERRIDE_SIGNATURE_MISMATCH` | A subclass declares a method whose name matches an ancestor's but whose parameter types or return type differ (LO requires invariant overrides). |
 | `E_MISSING_CONSTRUCTOR_IN_INHERITING_CLASS` | A class with an `extends` clause has no `[ ]` constructor section. |
 | `E_SUPER_IN_ROOT_CLASS` | A `super(...)` call appears in a constructor of a class with no `extends` clause. |
 | `E_SUPER_METHOD_IN_ROOT_CLASS` | A `super.<MethodName>(...)` expression appears in a method body of a class with no `extends` clause. |
 | `E_SUPER_METHOD_UNRESOLVED` | A `super.<MethodName>(...)` call where `<MethodName>` does not appear in any ancestor's effective method set. |
-| `E_DELEGATION_NOT_FIRST_STATEMENT` | A `super(...)` or `this(...)` delegation call appears as something other than the first statement of a constructor body. |
-| `E_DELEGATION_BOTH_SUPER_AND_THIS` | A constructor body contains both a `super(...)` and a `this(...)` call (mutually exclusive). |
-| `E_DELEGATION_CYCLE` | A `this(...)` delegation chain within one class forms a cycle. |
-| `E_DELEGATION_ARITY_MISMATCH` | A `super(...)` or `this(...)` call's actual arity matches no constructor's formal arity in the target. |
+| `E_DELEGATION_CYCLE` | A `this(...)` delegation chain within one class forms a cycle (includes a constructor that delegates to itself). Applies from LO-3, where `this(...)` is introduced. |
+| `E_DELEGATION_ARITY_MISMATCH` | A `super(...)` or `this(...)` call's actual arity matches no constructor's formal arity in the target. Because the implicit constructor is suppressed once any explicit constructor is declared, a `this(...)` in a single-explicit-constructor class has no valid target and fails here. The `this(...)` cases apply from LO-3. |
 | `E_INHERITANCE_CHECK_OTHER` | Inheritance-check failure not covered by a more specific category in this phase. The sentinel for the inheritance-check phase. |
+
+*Retired 2026-06-02: `E_EXTENDS_NON_CLASS`. The only non-class types are the reserved type keywords (`int`, `bool`, `String`, `void`); since `extends` takes a `<ClassName>` (an identifier) and those are keywords, `extends <non-class>` is rejected by the parser as `E_RESERVED_KEYWORD_AS_IDENTIFIER` — there is no semantic path to a separate extends-non-class error. Casts differ: `( ( T ) e )` takes a `<Type>`, so `((String) e)` parses and is caught semantically as `E_CAST_TARGET_NOT_CLASS`.*
 
 ### Cast and instanceof errors (LO-4)
 

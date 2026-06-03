@@ -1,0 +1,25 @@
+// bad test case
+// A void-returning method call is used in expression (value) position — here as an
+// assignment right-hand side. A void call may appear only as a call statement.
+// expected compile error: E_VOID_CALL_IN_EXPRESSION
+// Author: SC (Fall 2026)
+
+class Logger ( int n; ) [
+    Logger() {
+        n = 0;
+    }
+] {
+    void note(int v) {
+        n = v;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Logger g;
+        g = new Logger();
+        int x;
+        x = g.note(5);
+        return x;
+    }
+}

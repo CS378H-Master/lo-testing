@@ -1,0 +1,15 @@
+// bad test case
+// A \u{...} string escape denotes a surrogate code point (U+D800), which is not a
+// Unicode scalar value and cannot be encoded as valid UTF-8.
+// expected compile error: E_INVALID_UNICODE_ESCAPE
+// Author: SC (Fall 2026)
+
+class Main ( ) {
+    int main() {
+        String s;
+        s = "bad \u{D800} escape";
+        out.print_string(s);
+        out.println();
+        return 0;
+    }
+}

@@ -1,0 +1,27 @@
+// bad test case
+// this(...) delegation in a class whose only explicit constructor takes 3 parameters;
+// no 2-arg constructor exists (the implicit constructor is suppressed by the explicit one),
+// so the delegation has no target.
+// expected compile error: E_DELEGATION_ARITY_MISMATCH
+// Author: SC (Fall 2026)
+
+class Trio ( int a; int b; int c; ) [
+    Trio(int x, int y, int z) {
+        this(x, y);
+        a = x;
+        b = y;
+        c = z;
+    }
+] {
+    int sum() {
+        return ((a + b) + c);
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Trio t;
+        t = new Trio(1, 2, 3);
+        return t.sum();
+    }
+}

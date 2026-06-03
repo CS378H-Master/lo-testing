@@ -1,0 +1,25 @@
+// bad test case
+// A method-call statement invokes a non-void method, discarding its result.
+// LO requires a non-void result to be used.
+// expected compile error: E_NONVOID_CALL_AS_STATEMENT
+// Author: SC (Fall 2026)
+
+class Counter ( int n; ) [
+    Counter() {
+        n = 0;
+    }
+] {
+    int bump() {
+        n = (n + 1);
+        return n;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Counter c;
+        c = new Counter();
+        c.bump();
+        return 0;
+    }
+}
