@@ -1,9 +1,14 @@
 // *Good testcase*
 // Declare and call a simple method
 // main return value: 1
+// migrated 2026-06-03: int sentinel; success iff orig_main() is true
 // Author: Tyler Collins
 
 
-bool main() {
+bool orig_main() {
     return true;
+}
+
+int main() {
+    return (orig_main() ? 1 : 0);
 }

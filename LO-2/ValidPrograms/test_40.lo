@@ -1,13 +1,14 @@
 // *Good testcase*
 // Test literals in while/if statements, ternary expressions
 // main return value: 1
+// migrated 2026-06-03: int sentinel; success iff orig_main() is true
 // Author: Aaron Wollman
 
 bool isDivisible(int a, int b){
     return ((a % b) = 0);
 }
 
-bool main(){
+bool orig_main(){
     int a, b;
     a = 61;
     while (true){
@@ -33,4 +34,8 @@ bool main(){
         return false;
     }
     return false;
+}
+
+int main() {
+    return (orig_main() ? 1 : 0);
 }
