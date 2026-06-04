@@ -18,10 +18,10 @@ class Animal ( ) [ Animal() { ; } ] {
     int type() { return 1; }
 }
 
-class Dog ( ) extends Animal [ Dog() { super(); } ] {
+class Dog extends Animal ( ) [ Dog() { super(); } ] {
     int bark() { return 1; }
 }
 
-class Cat ( ) extends Animal [ Cat() { super(); } ] {
+class Cat extends Animal ( ) [ Cat() { super(); } ] {
     int meow() { return 1; }
 }

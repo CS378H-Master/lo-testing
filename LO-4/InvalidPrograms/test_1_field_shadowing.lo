@@ -6,7 +6,7 @@ class Parent ( int x; ) [
     Parent(int v) { x = v; }
 ] { }
 
-class Child ( int x; ) extends Parent [
+class Child extends Parent ( int x; ) [
     Child(int v1, int v2) {
         super(v1);
         x = v2;

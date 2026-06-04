@@ -5,9 +5,9 @@
 class Main () {
     int main() {
         Animal a;
-        a = null;
         Dog d;
-        d = (Dog) a;
+        a = null;
+        d = ( (Dog) a );
         if ( ( d = null ) ) {
             return 1;
         } else {
@@ -20,7 +20,7 @@ class Animal ( ) [ Animal() { ; } ] {
     int who() { return 1; }
 }
 
-class Dog ( ) extends Animal [
+class Dog extends Animal ( ) [
     Dog() { super(); }
 ] {
     int bark() { return 2; }

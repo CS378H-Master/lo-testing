@@ -6,9 +6,9 @@
 class Main () {
     int main() {
         Animal a;
-        a = new Dog();
         Cat c;
-        c = (Cat) a;
+        a = new Dog();
+        c = ( (Cat) a );
         return 0;
     }
 }
@@ -17,13 +17,13 @@ class Animal ( ) [ Animal() { ; } ] {
     int who() { return 1; }
 }
 
-class Cat ( ) extends Animal [
+class Cat extends Animal ( ) [
     Cat() { super(); }
 ] {
     int meow() { return 2; }
 }
 
-class Dog ( ) extends Animal [
+class Dog extends Animal ( ) [
     Dog() { super(); }
 ] {
     int bark() { return 3; }

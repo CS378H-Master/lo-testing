@@ -17,8 +17,8 @@ class Logger ( int n; ) [
 class Main ( ) {
     int main() {
         Logger g;
-        g = new Logger();
         int x;
+        g = new Logger();
         x = g.note(5);
         return x;
     }

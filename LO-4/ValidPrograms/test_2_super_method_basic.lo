@@ -16,7 +16,7 @@ class Animal ( int age; ) [
     int compute_age() { return age; }
 }
 
-class Dog ( ) extends Animal [
+class Dog extends Animal ( ) [
     Dog(int a) { super(a); }
 ] {
     int compute_age() {
