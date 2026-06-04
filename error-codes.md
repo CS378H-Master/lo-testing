@@ -92,9 +92,10 @@ Organized by compiler phase. A given compile error must emit at least one of the
 | `E_CAST_TARGET_NOT_CLASS` | A cast `( ( T ) e )` where `T` is not a class type (`int`, `bool`, `String`, `void`). |
 | `E_CAST_SOURCE_NOT_CLASS` | A cast `( ( T ) e )` where `e`'s static type is not a class type. |
 | `E_CAST_UNRELATED_TYPES` | A cast `( ( T ) e )` where neither `T <: static-type-of-e` nor `static-type-of-e <: T` (sibling cast). |
-| `E_INSTANCEOF_TARGET_NOT_CLASS` | An `instanceof` expression `( e instanceof T )` where `T` is not a class type. |
 | `E_INSTANCEOF_SOURCE_NOT_CLASS` | An `instanceof` expression `( e instanceof T )` where `e`'s static type is not a class type. |
 | `E_CAST_INSTANCEOF_OTHER` | Cast or `instanceof` check failure not covered by a more specific category in this phase. The sentinel for the cast-and-instanceof check phase. |
+
+*Retired 2026-06-04: `E_INSTANCEOF_TARGET_NOT_CLASS`. The `instanceof` target is a `<ClassName>` (an identifier), so a non-class type can never reach the cast/instanceof phase in target position — a reserved type keyword (`int`, `bool`, `String`, `void`) is a parse error (`E_RESERVED_KEYWORD_AS_IDENTIFIER`) and an identifier naming no class is `E_UNKNOWN_CLASS` at name resolution. Confirmed unreachable during the WS-13 LO-4 held-out authoring (the code was defined in the reference compiler but never emitted). Parallel to the retired `E_EXTENDS_NON_CLASS`. The source-side `E_INSTANCEOF_SOURCE_NOT_CLASS` stays (reachable — a primitive left operand). Casts differ: a cast takes a `<Type>`, so `E_CAST_TARGET_NOT_CLASS` is reachable.*
 
 ### Entry-point and program-shape errors
 
