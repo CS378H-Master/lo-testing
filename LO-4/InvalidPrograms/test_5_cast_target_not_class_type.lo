@@ -5,9 +5,9 @@
 class Main () {
     int main() {
         String s;
-        s = "hello";
         int n;
-        n = (int) s;
+        s = "hello";
+        n = ( (int) s );
         return n;
     }
 }

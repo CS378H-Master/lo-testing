@@ -14,7 +14,7 @@ class Shape ( ) [ Shape() { ; } ] {
     int shape_id() { return 100; }
 }
 
-class Polygon ( int sides; ) extends Shape [
+class Polygon extends Shape ( int sides; ) [
     Polygon(int s) {
         super();
         sides = s;
@@ -23,7 +23,7 @@ class Polygon ( int sides; ) extends Shape [
     int getSides() { return sides; }
 }
 
-class Triangle ( ) extends Polygon [
+class Triangle extends Polygon ( ) [
     Triangle() { super(3); }
 ] {
     int shape_id() {

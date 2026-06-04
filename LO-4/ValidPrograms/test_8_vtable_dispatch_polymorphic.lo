@@ -16,10 +16,10 @@ class Animal ( ) [ Animal() { ; } ] {
     int speak() { return 1; }
 }
 
-class Dog ( ) extends Animal [ Dog() { super(); } ] {
+class Dog extends Animal ( ) [ Dog() { super(); } ] {
     int speak() { return 2; }
 }
 
-class Cat ( ) extends Animal [ Cat() { super(); } ] {
+class Cat extends Animal ( ) [ Cat() { super(); } ] {
     int speak() { return 3; }
 }

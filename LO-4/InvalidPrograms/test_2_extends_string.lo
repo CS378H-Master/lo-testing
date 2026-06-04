@@ -3,7 +3,7 @@
 // so this is rejected by the parser.
 // expected compile error: E_RESERVED_KEYWORD_AS_IDENTIFIER
 
-class FancyString ( ) extends String [
+class FancyString extends String ( ) [
     FancyString() { ; }
 ] {
     int describe() { return 1; }
