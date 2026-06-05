@@ -14,7 +14,7 @@ Organized by compiler phase. A given compile error must emit at least one of the
 
 | Code | Trigger |
 |------|---------|
-| `E_RESERVED_KEYWORD_AS_IDENTIFIER` | An LO reserved keyword used where an identifier is required — `this`, `super`, `null`, `new`, `instanceof`, `extends`, or a type keyword (`int`, `bool`, `String`, `void`). Most commonly a type keyword in `<ClassName>` position, e.g. `extends String`, `extends int`, or `class String`. |
+| `E_RESERVED_KEYWORD_AS_IDENTIFIER` | An LO reserved keyword used where an identifier is required — `this`, `super`, `null`, `new`, `instanceof`, `extends`, or a type keyword (`int`, `bool`, `String`, `void`). Most commonly a type keyword in `<ClassName>` position, e.g., `extends String`, `extends int`, or `class String`. |
 | `E_MALFORMED_CLASS_DECL` | A `<ClassDecl>` lacks one of its required sections, has them in the wrong order, or has empty `[ ]` brackets (constructor section must have at least one declaration when present). |
 | `E_MALFORMED_CONSTRUCTOR` | A constructor declaration whose name does not equal the enclosing class's name. |
 | `E_DELEGATION_BOTH_SUPER_AND_THIS` | A constructor body contains both a `super(...)` and a `this(...)` delegation. The grammar admits at most one delegation, only as the optional first statement, so a body with both is rejected during parsing. |
