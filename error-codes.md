@@ -113,7 +113,7 @@ Organized by compiler phase. A given compile error must emit at least one of the
 Runtime aborts have native exit codes documented in `runtime-abi.md`. The corresponding header-comment line in a `RuntimeAbortPrograms/` test references the exit code directly; the names here are for cross-reference in this document.
 
 | Name | Native exit code | Trigger |
-|------|------------------|---------|
+|----------------------|------------|--------------------------------------------------------------|
 | `ABORT_CAST_FAILURE` | 101 | `lo_cast_check` called with an object whose runtime class is neither `target` nor a descendant. Per `runtime-abi.md` §3.5. |
 | `ABORT_NULL_RECEIVER` | 102 | Method invocation on a null receiver. The runtime detects on entry to the dispatched method. |
 | `ABORT_READ_INT_MALFORMED` | 110 | `lo_read_int` encounters input that is not a valid integer token. |
