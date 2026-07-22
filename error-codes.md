@@ -1,6 +1,6 @@
 # CS 378H — LO Error-Code Vocabulary
 
-**Fall 2026. First cut, 2026-05-28.**
+**Fall 2026.**
 
 This document defines the compile-error and runtime-abort categories used in conformance-test contracts (see `README.md` for how test headers reference these). Student compilers emit the corresponding code in their stderr output; the conformance harness substring-matches against the code rather than the human-readable message, so student compilers retain freedom over diagnostic phrasing while the suite still validates that the right category of error is being caught.
 
@@ -83,7 +83,7 @@ Organized by compiler phase. A given compile error must emit at least one of the
 | `E_DELEGATION_ARITY_MISMATCH` | A `super(...)` or `this(...)` call's actual arity matches no constructor's formal arity in the target. Because the implicit constructor is suppressed once any explicit constructor is declared, a `this(...)` in a single-explicit-constructor class has no valid target and fails here. The `this(...)` cases apply from LO-3. |
 | `E_INHERITANCE_CHECK_OTHER` | Inheritance-check failure not covered by a more specific category in this phase. The sentinel for the inheritance-check phase. |
 
-*Retired 2026-06-02: `E_EXTENDS_NON_CLASS`. The only non-class types are the reserved type keywords (`int`, `bool`, `String`, `void`); since `extends` takes a `<ClassName>` (an identifier) and those are keywords, `extends <non-class>` is rejected by the parser as `E_RESERVED_KEYWORD_AS_IDENTIFIER` — there is no semantic path to a separate extends-non-class error. Casts differ: `( ( T ) e )` takes a `<Type>`, so `((String) e)` parses and is caught semantically as `E_CAST_TARGET_NOT_CLASS`.*
+<!-- Retired 2026-06-02: `E_EXTENDS_NON_CLASS`. The only non-class types are the reserved type keywords (`int`, `bool`, `String`, `void`); since `extends` takes a `<ClassName>` (an identifier) and those are keywords, `extends <non-class>` is rejected by the parser as `E_RESERVED_KEYWORD_AS_IDENTIFIER` — there is no semantic path to a separate extends-non-class error. Casts differ: `( ( T ) e )` takes a `<Type>`, so `((String) e)` parses and is caught semantically as `E_CAST_TARGET_NOT_CLASS`. -->
 
 ### Cast and instanceof errors (LO-4)
 
@@ -95,7 +95,7 @@ Organized by compiler phase. A given compile error must emit at least one of the
 | `E_INSTANCEOF_SOURCE_NOT_CLASS` | An `instanceof` expression `( e instanceof T )` where `e`'s static type is not a class type. |
 | `E_CAST_INSTANCEOF_OTHER` | Cast or `instanceof` check failure not covered by a more specific category in this phase. The sentinel for the cast-and-instanceof check phase. |
 
-*Retired 2026-06-04: `E_INSTANCEOF_TARGET_NOT_CLASS`. The `instanceof` target is a `<ClassName>` (an identifier), so a non-class type can never reach the cast/instanceof phase in target position — a reserved type keyword (`int`, `bool`, `String`, `void`) is a parse error (`E_RESERVED_KEYWORD_AS_IDENTIFIER`) and an identifier naming no class is `E_UNKNOWN_CLASS` at name resolution. Confirmed unreachable during the WS-13 LO-4 held-out authoring (the code was defined in the reference compiler but never emitted). Parallel to the retired `E_EXTENDS_NON_CLASS`. The source-side `E_INSTANCEOF_SOURCE_NOT_CLASS` stays (reachable — a primitive left operand). Casts differ: a cast takes a `<Type>`, so `E_CAST_TARGET_NOT_CLASS` is reachable.*
+<!-- Retired 2026-06-04: `E_INSTANCEOF_TARGET_NOT_CLASS`. The `instanceof` target is a `<ClassName>` (an identifier), so a non-class type can never reach the cast/instanceof phase in target position — a reserved type keyword (`int`, `bool`, `String`, `void`) is a parse error (`E_RESERVED_KEYWORD_AS_IDENTIFIER`) and an identifier naming no class is `E_UNKNOWN_CLASS` at name resolution. Confirmed unreachable during the WS-13 LO-4 held-out authoring (the code was defined in the reference compiler but never emitted). Parallel to the retired `E_EXTENDS_NON_CLASS`. The source-side `E_INSTANCEOF_SOURCE_NOT_CLASS` stays (reachable — a primitive left operand). Casts differ: a cast takes a `<Type>`, so `E_CAST_TARGET_NOT_CLASS` is reachable. -->
 
 ### Entry-point and program-shape errors
 
@@ -128,8 +128,8 @@ These exit codes are mirrored in `runtime-abi.md` at each emitting function (§3
 
 When the conformance suite needs to test for a new error category, the workflow is:
 
-1. SC drafts the new code's row in this document with the trigger description.
-2. DC reviews and approves the addition (low ceremony — usually a one-line confirmation).
+1. The new code's row is drafted in this document with its trigger description.
+2. The instructor reviews and approves the addition (low ceremony — usually a one-line confirmation).
 3. The code lands in this document; tests using it can be added in the same commit.
 4. Student compilers add support for emitting the new code in their next development cycle.
 
