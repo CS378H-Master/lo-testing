@@ -35,6 +35,7 @@ Organized by compiler phase. A given compile error must emit at least one of the
 | `E_RETURN_IN_VOID_METHOD` | A `return <Expr>;` statement in a `void`-returning method. (LO has no `return;` form; void methods have no return statements.) |
 | `E_RETURN_MISSING` | A non-`void` method body where some control path reaches the end without returning. |
 | `E_RETURN_IN_CONSTRUCTOR` | A `return` statement in a constructor body. |
+| `E_BREAK_OUTSIDE_LOOP` | A `break;` statement with no enclosing `while` loop in the same body. |
 | `E_LOCAL_SHADOWS_FORMAL` | A local variable redeclares the name of a formal parameter within the same scope. |
 | `E_WELL_FORMEDNESS_OTHER` | Well-formedness violation not covered by a more specific category in this phase. The sentinel for the well-formedness phase. |
 

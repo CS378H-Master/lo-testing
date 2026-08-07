@@ -1,0 +1,17 @@
+// bad test case
+// A break statement sits inside an if, but no while loop encloses it. LO-2
+// well-formedness requires every break to sit inside a loop in the same body.
+// expected compile error: E_BREAK_OUTSIDE_LOOP
+// Author: SC (Fall 2026)
+
+int main() {
+    int a;
+    a = 1;
+    if ((a > 0)) {
+        break;
+    }
+    else {
+        a = 2;
+    }
+    return a;
+}
