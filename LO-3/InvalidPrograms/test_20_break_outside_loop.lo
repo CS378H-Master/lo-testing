@@ -1,0 +1,19 @@
+// bad test case
+// A break statement sits inside an if in a method body, but no while loop
+// encloses it. A break is well-formed only inside an enclosing while.
+// expected compile error: E_BREAK_OUTSIDE_LOOP
+// Author: SC (Fall 2026)
+
+class Main ( ) {
+    int main() {
+        int a;
+        a = 1;
+        if ((a > 0)) {
+            break;
+        }
+        else {
+            a = 2;
+        }
+        return a;
+    }
+}
