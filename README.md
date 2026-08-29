@@ -121,6 +121,25 @@ $ test $? -eq 101                  # matches header's expected exit code
 $ grep -q "lo_cast_check: cannot cast Dog to Cat" abort_stderr
 ```
 
+## Standard build environment (`docker/`)
+
+The course Dockerfile ([`docker/Dockerfile`](docker/Dockerfile)) is the standard
+build environment the project handouts name: one Linux image carrying the whole
+toolchain for all four projects, including `wasm-ld` and the `wasmrun` WASM host
+harness for Project 1 and the native x86-64 pipeline for Projects 2 through 4.
+The image is amd64-only by design and runs on ARM Macs under Rosetta (Docker
+Desktop: enable Rosetta emulation; colima: `--vm-type=vz --vz-rosetta`).
+
+```sh
+docker build --platform=linux/amd64 -t cs378h:latest docker/
+docker run --rm -it --platform=linux/amd64 -v "$PWD":/work cs378h:latest
+```
+
+What passes inside this container is what the grading runs see; the header of
+the Dockerfile documents exactly what it installs. The `wasmrun` harness is
+canonical in the `lo-runtime` repository (`tools/wasmrun`) and is installed
+into the image at build time.
+
 ## Current state
 
 As of 2026-05-30, the suite covers:
