@@ -132,6 +132,7 @@ When the conformance suite needs to test for a new error category, the workflow 
 1. The new code's row is drafted in this document with its trigger description.
 2. The instructor reviews and approves the addition (low ceremony — usually a one-line confirmation).
 3. The code lands in this document; tests using it can be added in the same commit.
-4. Student compilers add support for emitting the new code in their next development cycle.
+4. The reference compiler is updated to emit the new code, and the new tests run green against it, in the same change or the next one. A code with tests but no emitter is a test that only fails; the change is not complete until the reference implementation rejects the program the tests describe. (Added 2026-09-10, after `E_BREAK_OUTSIDE_LOOP` landed with its row and tests on 2026-08-07 and its emitter a month later.)
+5. Student compilers add support for emitting the new code in their next development cycle.
 
 Removing or renaming a code requires more care: any test referencing the old code breaks, and external materials (handouts, lecture slides) may name codes by their stable identifier. Removal happens only at semester boundaries, with a course-wide announcement.
