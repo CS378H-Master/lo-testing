@@ -58,6 +58,47 @@ RUN curl -sSL "https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZI
     && ln -s "/opt/zig-linux-x86_64-${ZIG_VERSION}/zig" /usr/local/bin/zig \
     && zig version
 
+# OCaml — for teams writing their *compiler* in OCaml. This is only the
+# compiler side: the three runtime skeletons (P3) are Rust, Zig and C++, so
+# OCaml never appears on the runtime side, and an OCaml compiler still links its
+# emitted wasm object against one of those runtimes.
+#
+# Debian packages the whole standard toolchain (`ocamlc`, `ocamlopt`,
+# `ocamllex`, `menhir`, `ocamlfind`, `dune`) into /usr/bin. Its `dune` is 2.9,
+# though, which rejects the `(lang dune 3.x)` anyone developing against a
+# current dune will have written — so a newer dune and menhir are layered on via
+# opam. `ocaml-system` binds the switch to the apt compiler instead of building
+# one, turning a multi-minute bootstrap into about ten seconds. The switch's
+# tools are surfaced through /usr/local/bin, which precedes /usr/bin, so they
+# shadow the apt versions while those remain as a fallback.
+#
+# OCAMLPATH is required, not decorative: without it `ocamlfind` does not see the
+# switch's libraries and any `(libraries ...)` stanza naming a non-stdlib
+# package fails with `Library "x" not found`.
+ENV OPAMROOT=/opt/opam \
+    OPAMYES=1 \
+    OPAMCOLOR=never \
+    OCAMLPATH=/opt/opam/default/lib \
+    CAML_LD_LIBRARY_PATH=/opt/opam/default/lib/stublibs
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        ocaml-nox \
+        ocaml-findlib \
+        dune \
+        menhir \
+        opam \
+        bubblewrap \
+    && rm -rf /var/lib/apt/lists/* \
+    && opam init --bare --disable-sandboxing --no-setup -q \
+    && opam switch create default ocaml-system -q \
+    && opam install -y dune menhir -q \
+    && for tool in dune menhir ocamlfind; do \
+           ln -sf "$(opam var bin)/$tool" "/usr/local/bin/$tool"; \
+       done \
+    && chmod -R go=rX /opt/opam \
+    && ocamlc -version \
+    && dune --version \
+    && menhir --version
+
 # wasmrun — the WASM host harness, canonical in the lo-runtime repository
 # (tools/wasmrun). Installed at image build so the harness named by the P1
 # handout is on PATH out of the box.
