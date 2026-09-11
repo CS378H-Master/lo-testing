@@ -63,41 +63,50 @@ RUN curl -sSL "https://ziglang.org/download/${ZIG_VERSION}/zig-linux-x86_64-${ZI
 # OCaml never appears on the runtime side, and an OCaml compiler still links its
 # emitted wasm object against one of those runtimes.
 #
-# Debian packages the whole standard toolchain (`ocamlc`, `ocamlopt`,
-# `ocamllex`, `menhir`, `ocamlfind`, `dune`) into /usr/bin. Its `dune` is 2.9,
-# though, which rejects the `(lang dune 3.x)` anyone developing against a
-# current dune will have written — so a newer dune and menhir are layered on via
-# opam. `ocaml-system` binds the switch to the apt compiler instead of building
-# one, turning a multi-minute bootstrap into about ten seconds. The switch's
-# tools are surfaced through /usr/local/bin, which precedes /usr/bin, so they
-# shadow the apt versions while those remain as a fallback.
+# The version is set by what the OCaml teams actually build against: OCaml
+# 5.4.0 / dune 3.23.1 with Jane Street core v0.17.2, core_unix v0.17.1 and
+# ppx_let v0.17.1. Debian's apt OCaml is far older, and those libraries will not
+# build against it, so apt's ocaml/dune/menhir packages are deliberately NOT
+# installed — the whole toolchain comes from an opam switch, compiler included.
+# That is a real source bootstrap (~90 packages) and the slowest layer in this
+# image by a wide margin, which is exactly why it sits in its own layer.
 #
-# OCAMLPATH is required, not decorative: without it `ocamlfind` does not see the
-# switch's libraries and any `(libraries ...)` stanza naming a non-stdlib
-# package fails with `Library "x" not found`.
+# dune and menhir are unpinned on purpose: dune accepts older `(lang dune 3.x)`
+# stanzas, so the newest is the safest choice — pinning 3.23.1 would reject
+# anyone who wrote `(lang dune 3.24)`. The libraries are pinned, because their
+# APIs are what the code is written against.
+#
+# PATH carries the switch's bin dir wholesale rather than symlinking the obvious
+# four tools: dune shells out to many more (ocamldep, ocamlmklib, ocamlobjinfo,
+# ocamlrun, ocamllex...). OCAMLPATH is likewise required, not decorative:
+# without it `ocamlfind` does not see the switch's libraries and any
+# `(libraries ...)` stanza naming a non-stdlib package fails with
+# `Library "x" not found`.
 ENV OPAMROOT=/opt/opam \
     OPAMYES=1 \
     OPAMCOLOR=never \
+    PATH=/opt/opam/default/bin:$PATH \
     OCAMLPATH=/opt/opam/default/lib \
     CAML_LD_LIBRARY_PATH=/opt/opam/default/lib/stublibs
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        ocaml-nox \
-        ocaml-findlib \
-        dune \
-        menhir \
         opam \
-        bubblewrap \
+        m4 \
+        patch \
+        unzip \
+        bzip2 \
+        pkg-config \
+        libgmp-dev \
     && rm -rf /var/lib/apt/lists/* \
     && opam init --bare --disable-sandboxing --no-setup -q \
-    && opam switch create default ocaml-system -q \
-    && opam install -y dune menhir -q \
-    && for tool in dune menhir ocamlfind; do \
-           ln -sf "$(opam var bin)/$tool" "/usr/local/bin/$tool"; \
-       done \
+    && opam switch create default 5.4.0 -q \
+    && opam install -y -q 'dune>=3.23.1' menhir ocamlfind \
+           core.v0.17.2 core_unix.v0.17.1 ppx_let.v0.17.1 \
+    && opam clean -a -c -r --logs -q \
     && chmod -R go=rX /opt/opam \
     && ocamlc -version \
     && dune --version \
-    && menhir --version
+    && menhir --version \
+    && ocamlfind list | grep -E '^(core|core_unix|ppx_let) '
 
 # wasmrun — the WASM host harness, canonical in the lo-runtime repository
 # (tools/wasmrun). Installed at image build so the harness named by the P1
