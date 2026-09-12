@@ -1,0 +1,34 @@
+// good test case
+// Input and Output are ordinary class types: an Output value may be a formal, a
+// field, and an actual argument. err is a different sink from out, so only the
+// bytes written through out reach standard output.
+// main method return value: 0
+
+class Logger ( Output sink; ) [
+    Logger(Output s) {
+        sink = s;
+    }
+] {
+    void note(String msg) {
+        sink.print_string(msg);
+        sink.println();
+    }
+}
+
+class Main ( ) {
+    void emit(Output dest, bool flag) {
+        dest.print_string("flag=");
+        dest.print_bool(flag);
+        dest.println();
+    }
+    int main() {
+        Logger quiet, loud;
+        quiet = new Logger(err);
+        loud = new Logger(out);
+        quiet.note("to stderr");
+        loud.note("to stdout");
+        this.emit(err, false);
+        this.emit(out, true);
+        return 0;
+    }
+}

@@ -1,0 +1,26 @@
+// good test case
+// Boolean & and | skip their right-hand operand when its value is already decided.
+// main method return value: 38
+
+class Main ( int calls; ) [
+    Main() {
+        calls = 0;
+    }
+] {
+    bool touched() {
+        calls = (calls + 1);
+        return true;
+    }
+
+    int main() {
+        bool first;
+        bool second;
+        first = (false & this.touched());
+        second = (true | this.touched());
+        if ( (calls = 0) ) {
+            return 38;
+        } else {
+            return 0;
+        }
+    }
+}

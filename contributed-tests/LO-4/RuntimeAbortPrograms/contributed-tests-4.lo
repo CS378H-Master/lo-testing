@@ -1,0 +1,24 @@
+// runtime abort test case
+// Statically legal nested cast (up to common ancestor, then down to a sibling) fails at runtime
+// expected exit code: 101
+// expected stderr substring: lo_cast_check: cannot cast Dog to Cat
+
+class Animal () {}
+
+class Dog extends Animal () [
+    Dog() { super(); }
+] {}
+
+class Cat extends Animal () [
+    Cat() { super(); }
+] {}
+
+class Main () {
+    int main() {
+        Dog dog;
+        Cat cat;
+        dog = new Dog();
+        cat = ((Cat) ((Animal) dog));
+        return 0;
+    }
+}

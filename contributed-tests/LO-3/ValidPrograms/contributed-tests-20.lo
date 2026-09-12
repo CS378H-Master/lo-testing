@@ -1,0 +1,28 @@
+// good test case
+// A method with eight formals is called with nine arguments counting the
+// receiver to test exhausting registers.
+// main method return value: 255
+
+class Weigh ( int base; ) [
+    Weigh(int a, int b, int c, int d, int e, int f, int g) {
+        base = ((((((a + b) + c) + d) + e) + f) + g);
+    }
+] {
+    int getBase() { return base; }
+    int combine(int a, int b, int c, int d, int e, int f, int g, int h) {
+        return (((((((a + (b * 2)) + (c * 4)) + (d * 8)) + (e * 16))
+            + (f * 32)) + (g * 64)) + (h * 128));
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Weigh w;
+        w = new Weigh(1, 2, 4, 8, 16, 32, 64);
+        if ((!(w.getBase() = 127))) { return 151; } else { ; }
+        if ((!(w.combine(1, 1, 1, 1, 1, 1, 1, 1) = 255))) { return 152; } else { ; }
+        if ((!(w.combine(0, 0, 0, 0, 0, 0, 0, 1) = 128))) { return 153; } else { ; }
+        if ((!(w.combine(1, 0, 0, 0, 0, 0, 0, 0) = 1))) { return 154; } else { ; }
+        return w.combine((w.getBase() - 126), 1, 1, 1, 1, 1, 1, 1);
+    }
+}

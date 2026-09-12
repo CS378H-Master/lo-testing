@@ -1,0 +1,19 @@
+// bad test case
+// Conditional branches from unrelated class trees have no compatible type
+// expected compile error: E_CONDITIONAL_TYPE_MISMATCH
+
+class Main () { 
+    int main() { 
+        A a; 
+        a = (true ? new A() : new B()); 
+        return 0; 
+    } 
+}
+
+class A ( ) [ 
+    A() { ; } 
+] { }
+
+class B ( ) [ 
+    B() { ; } 
+] { }

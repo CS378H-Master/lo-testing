@@ -1,0 +1,16 @@
+// good test case
+// Local declared in a never-taken else block is hoisted method-wide: usable before and after that block
+// main method return value: 6
+
+class Main () {
+    int main() {
+        value = 5;
+        if (true) {
+            value = (value + 1);
+        } else {
+            int value;
+            value = 0;
+        }
+        return value;
+    }
+}

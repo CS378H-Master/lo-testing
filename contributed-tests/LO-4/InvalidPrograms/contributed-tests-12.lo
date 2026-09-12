@@ -1,0 +1,11 @@
+// bad test case
+// An extends clause must name a declared class
+// expected compile error: E_UNKNOWN_CLASS
+
+class Child extends Missing ( ) [ 
+    Child() { super(); } 
+] { }
+
+class Main () { 
+    int main() { return 0; } 
+}

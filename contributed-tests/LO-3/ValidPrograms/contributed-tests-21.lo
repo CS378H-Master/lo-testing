@@ -1,0 +1,11 @@
+// good test case
+// Integer division and modulo are total (langref §2.3.1, RISC-V M convention): x / 0 is -1
+// and x % 0 is x, so (7 % 0) + (7 / 0) is 6. A back end that leaves i32.div_s or i32.rem_s
+// unguarded traps here, and one that returns 0 for both cases exits 7 instead of 6.
+// main method return value: 6
+
+class Main () {
+    int main() {
+        return ((7 % 0) + (7 / 0));
+    }
+}

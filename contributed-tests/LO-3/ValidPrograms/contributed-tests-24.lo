@@ -1,0 +1,26 @@
+// good test case
+// Every escape the string grammar admits survives.
+// main method return value: 0
+
+class Main ( ) {
+    int main() {
+        String quoted, tabbed, star, grin;
+        quoted = "say \"hi\"\\";
+        tabbed = "a\tb";
+        star = "\u{2605}";
+        grin = "\u{1F600}";
+        if ((!("\r" = "\u{000D}"))) { return 131; } else { ; }
+        if ((!("\u{41}" = "A"))) { return 132; } else { ; }
+        if ((!(star = "★"))) { return 133; } else { ; }
+        if ((!((~grin) = grin))) { return 134; } else { ; }
+        out.print_string(quoted);
+        out.println();
+        out.print_string(tabbed);
+        out.println();
+        out.print_string((star + grin));
+        out.println();
+        out.print_string("one\ntwo");
+        out.println();
+        return 0;
+    }
+}

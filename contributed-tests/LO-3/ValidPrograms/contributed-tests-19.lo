@@ -1,0 +1,24 @@
+// good test case
+// Class and method names are ordinary identifiers: a class may be named after a
+// runtime entry point, and a method may share its class's name without being a
+// constructor.
+// main method return value: 33
+
+class lo_alloc ( int n; ) [
+    lo_alloc(int v) {
+        n = v;
+    }
+] {
+    int lo_alloc(int k) { return (n + k); }
+    int lo_string_concat() { return (n * 2); }
+}
+
+class Main ( ) {
+    int main() {
+        lo_alloc a;
+        a = new lo_alloc(11);
+        if ((!(a.lo_alloc(1) = 12))) { return 161; } else { ; }
+        if ((!(a.lo_string_concat() = 22))) { return 162; } else { ; }
+        return (a.lo_alloc(0) + 22);
+    }
+}

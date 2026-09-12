@@ -1,0 +1,15 @@
+// bad test case
+// A constructor name must match its enclosing class name.
+// expected compile error: E_MALFORMED_CONSTRUCTOR
+
+class Box() [
+    Wrong() {
+        ;
+    }
+] { }
+
+class Main() {
+    int main() {
+        return 0;
+    }
+}

@@ -1,0 +1,51 @@
+// good test case
+// An override keeps its parent's vtable slot and a new method takes a fresh
+// slot after the inherited ones, whatever order the child declares them in.
+// main method return value: 93
+
+class Base ( int seed; ) {
+    int a() { return seed; }
+    int b() { return 2; }
+    int c() { return 3; }
+}
+
+class Mid extends Base ( ) [
+    Mid() {
+        super(1);
+    }
+] {
+    int d() { return 40; }
+    int c() { return 30; }
+    int a() { return 10; }
+}
+
+class Leaf extends Mid ( ) [
+    Leaf() {
+        super();
+    }
+] {
+    int e() { return 500; }
+    int b() { return 200; }
+    int d() { return 400; }
+}
+
+class Main ( ) {
+    int main() {
+        Base x;
+        Mid y;
+        Leaf z;
+        z = new Leaf();
+        y = z;
+        x = z;
+        if ((!(((x.a() + x.b()) + x.c()) = 240))) { return 131; } else { ; }
+        if ((!((y.d() + y.a()) = 410))) { return 132; } else { ; }
+        if ((!((z.e() + z.c()) = 530))) { return 133; } else { ; }
+        y = new Mid();
+        x = y;
+        if ((!(((x.a() + x.b()) + x.c()) = 42))) { return 134; } else { ; }
+        if ((!(y.d() = 40))) { return 135; } else { ; }
+        x = new Base(7);
+        if ((!(((x.a() + x.b()) + x.c()) = 12))) { return 136; } else { ; }
+        return 93;
+    }
+}

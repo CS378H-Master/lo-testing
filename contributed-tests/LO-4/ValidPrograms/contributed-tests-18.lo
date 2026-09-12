@@ -1,0 +1,37 @@
+// good test case
+// Construction runs the parent portion first, and dispatch is already virtual
+// while it runs.
+// main method return value: 47
+
+class Base ( int seen; ) [
+    Base() {
+        seen = this.probe();
+    }
+] {
+    int probe() { return 1; }
+    int getSeen() { return seen; }
+}
+
+class Derived extends Base ( int weight; ) [
+    Derived() {
+        super();
+        weight = 40;
+    }
+] {
+    int probe() { return (weight + 7); }
+    int getWeight() { return weight; }
+}
+
+class Main ( ) {
+    int main() {
+        Derived d;
+        Base b;
+        d = new Derived();
+        if ((!(d.getSeen() = 7))) { return 201; } else { ; }
+        if ((!(d.getWeight() = 40))) { return 202; } else { ; }
+        if ((!(d.probe() = 47))) { return 203; } else { ; }
+        b = new Base();
+        if ((!(b.getSeen() = 1))) { return 204; } else { ; }
+        return d.probe();
+    }
+}

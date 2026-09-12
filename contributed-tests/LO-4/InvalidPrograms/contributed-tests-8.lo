@@ -1,0 +1,17 @@
+// bad test case
+// A subclass constructor must begin by delegating to this or super
+// expected compile error: E_INHERITANCE_CHECK_OTHER
+
+class Parent ( ) [ 
+    Parent() { ; } 
+] { }
+
+class Child extends Parent ( int x; ) [ 
+    Child() { x = 1; } 
+] { }
+
+class Main () { 
+    int main() { 
+        return 0; 
+    } 
+}
