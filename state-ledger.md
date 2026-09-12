@@ -3,7 +3,7 @@ project: cs378h
 phase: "Pre-semester course design (Fall 2026, semester starts Mon Aug 24); ~12 weeks remaining"
 status: yellow
 needs_dc_next: resolve flag-2 `test_88` in lo-testing (relocate to LO-2 under a fresh number, or delete if duplicate — CC can execute given the rule); apply the §Status correction to the lo-testing migration doc; once project knowledge syncs PR #3, SC completes the (A) error-code retrofit across the migrated InvalidPrograms (or run as a Claude-Code-in-lo-testing pass); advance WS-3 (LaTeX reflow, DC-side, unblocked); confirm project_instructions.md bootstrap text names CS378H-Master/planning
-last_touched: 2026-05-30
+last_touched: 2026-09-12
 deadline: 2026-08-24
 cadence: deadline-bounded
 ---
@@ -12,7 +12,7 @@ cadence: deadline-bounded
 
 🟡 Pre-semester course design (Fall 2026, semester starts Mon Aug 24); ~12 weeks remaining.
 
-**Last updated: 2026-05-30.** *Update this line every time the file changes.*
+**Last updated: 2026-09-12.** *Update this line every time the file changes.*
 
 This document is the running status board for the CS 378H course-design project. It is the place to look first when resuming work after time away. The conversation transcripts in `/mnt/transcripts/` (when available in the working environment) contain the reasoning behind every decision; this ledger summarizes the outcomes. When transcripts are absent, the locked-decisions section is the only audit trail.
 
@@ -55,6 +55,10 @@ WS-1 (runtime skeletons) is ✅ Completed and WS-4 (conformance suite) is 🟡 A
 ## Locked decisions
 
 These are settled and should not be re-litigated except via `common_sop_v7.md` § Decision discipline's reopening gate (named trigger; cascade check; locked entry annotated). All entries below are **Locked** unless flagged otherwise.
+
+### Runtime ABI — print-family destination selector — **Locked 2026-09-12**
+
+The runtime ABI's print family (`lo_print_int` / `lo_print_bool` / `lo_print_string` / `lo_println`) gained a trailing `to_stderr: i32` selector (`0` = stdout, `1` = stderr; other values reserved). Trigger: P1's WO-1 sink-dispatch fix let `test_output_sink_parameter` run, exposing that `err.print_*(...)` had no ABI-level realization — it lowered identically to `out.print_*(...)` and both hit stdout, corrupting the stdout comparison of any program that wrote through `err`. A codegen-only workaround (WO-7: native `dup`/`dup2` fd-swap, WASM `host_set_print_dest` sticky flag) landed on a branch first; DC superseded it here in favor of a documented ABI destination — the print family being one of the two flagged high-cascade structural areas (the other being the LO grammar), the reopening is recorded per the reopening gate. Two alternatives were rejected: keeping the fd-swap/bracket (an undocumented destination trick the ABI can't see, and it violated the vendored-`wasmrun` byte-identical guardrail), and a parallel `lo_eprint_*` family (a run-time branch at every dynamic-receiver call site). The selector was chosen because it keeps "codegen calls one documented entry point" true for both the static (`out`/`err` literal) and dynamic (`Output`-typed field/parameter) cases — the dynamic case passes a value computed at run time from the receiver's identity, no branch, no bracket. **Signature break, accepted as minimal:** the print family is provided-not-stubbed (ABI §4.4), so no student runtime code changes on a skeleton pull; the student-side change is a single appended `0` argument on stdout print emission. **Cascade:** `runtime-abi.md` §3.7 (canonical `planning/`, `lo-runtime/` downstream sync, `lo-compiler/vendor/` re-vendor), the three runtime skeletons' `io.*`, the `wasmrun` host print handlers (canonical `lo-runtime/tools/wasmrun` + `lo-compiler/crates/wasmrun` mirror), `loc`'s WASM (`lower.rs`/`obj.rs`) and native (`ir.rs`) back ends, and the conformance/grading tests. Implemented in WO-9 (`for-cc-p1-print-dest-abi.md`); the WO-7 branch commit is dropped, its branch pruned. Two independent P1 native follow-ups ride alongside: WO-10 (conformance `NativeBackend::new` mount-path breaks under nested worktrees — distinct from D-B5) and WO-11 (native arg-spill emits an invalid mem→mem `mov` for the 7th+ SysV argument; pre-existing on `main`).
 
 ### Course structure — **Locked**
 
