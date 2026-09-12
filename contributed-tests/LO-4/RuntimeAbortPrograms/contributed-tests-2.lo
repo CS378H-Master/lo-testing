@@ -1,0 +1,13 @@
+// runtime abort test case
+// I/O lowering still checks a null Output receiver
+// expected exit code: 102
+// expected stderr substring: lo_abort_null_receiver
+
+class Main () { 
+    int main() { 
+        Output sink; 
+        sink = null; 
+        sink.print_int(1); 
+        return 0; 
+    } 
+}

@@ -1,0 +1,40 @@
+// good test case
+// A String field an ancestor declares and no constructor assigns still holds
+// the empty string, not null, in a subclass instance.
+// main method return value: 37
+
+class Labeled ( String label; int n; ) [
+    Labeled(int k) {
+        n = k;
+    }
+] {
+    String getLabel() { return label; }
+    int getN() { return n; }
+}
+
+class Item extends Labeled ( String note; ) [
+    Item() {
+        this(7);
+    }
+    Item(int k) {
+        super(k);
+    }
+] {
+    String getNote() { return note; }
+}
+
+class Main ( ) {
+    int main() {
+        Item it;
+        Labeled l;
+        it = new Item();
+        if ((!(it.getN() = 7))) { return 81; } else { ; }
+        if ((!(it.getLabel() = ""))) { return 82; } else { ; }
+        if ((!(it.getNote() = ""))) { return 83; } else { ; }
+        if ((!((it.getLabel() + "x") = "x"))) { return 84; } else { ; }
+        if ((!((~it.getNote()) = ""))) { return 85; } else { ; }
+        l = it;
+        if ((!((l.getLabel() * 3) = ""))) { return 86; } else { ; }
+        return 37;
+    }
+}

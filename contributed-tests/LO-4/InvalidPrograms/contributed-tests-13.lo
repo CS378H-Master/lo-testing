@@ -1,0 +1,9 @@
+// bad test case
+// Main.main must return int
+// expected compile error: E_MAIN_METHOD_SIGNATURE
+
+class Main () { 
+    bool main() { 
+        return true; 
+    } 
+}

@@ -1,0 +1,50 @@
+// good test case
+// A conditional whose branches have different class types takes their nearest
+// common supertype.
+// main method return value: 42
+
+class Animal ( ) [
+    Animal() {
+        ;
+    }
+] {
+    int legs() { return 0; }
+}
+
+class Dog extends Animal ( ) [
+    Dog() {
+        super();
+    }
+] {
+    int legs() { return 4; }
+}
+
+class Bird extends Animal ( ) [
+    Bird() {
+        super();
+    }
+] {
+    int legs() { return 2; }
+}
+
+class Main ( ) {
+    Animal pick(bool wantDog) {
+        return (wantDog ? new Dog() : new Bird());
+    }
+    int main() {
+        Animal a;
+        Dog d;
+        bool f;
+        f = false;
+        a = (f ? new Dog() : new Bird());
+        if ((!(a.legs() = 2))) { return 151; } else { ; }
+        if ((!((this.pick(true)).legs() = 4))) { return 152; } else { ; }
+        if ((!(((f ? new Dog() : new Bird())).legs() = 2))) { return 153; } else { ; }
+        if ((!((f ? new Dog() : new Bird()) instanceof Bird))) { return 154; } else { ; }
+        d = ((!f) ? new Dog() : null);
+        if ((d = null)) { return 155; } else { ; }
+        d = (f ? new Dog() : null);
+        if ((!(d = null))) { return 156; } else { ; }
+        return (a.legs() * 21);
+    }
+}

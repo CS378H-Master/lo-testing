@@ -1,0 +1,27 @@
+// good test case
+// Actual arguments are evaluated left to right.
+// main method return value: 13
+
+class Diff ( int lo; int hi; ) [
+    Diff(int a, int b) {
+        lo = a;
+        hi = b;
+    }
+] {
+    int gap() { return (hi - lo); }
+}
+
+class Main ( ) {
+    int minus(int a, int b) {
+        return (a - b);
+    }
+    int main() {
+        Diff d;
+        int first;
+        first = this.minus(in.read_int(), in.read_int());
+        d = new Diff(in.read_int(), in.read_int());
+        if ((!(first = 7))) { return 141; } else { ; }
+        if ((!(d.gap() = 6))) { return 142; } else { ; }
+        return (first + d.gap());
+    }
+}

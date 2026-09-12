@@ -1,0 +1,15 @@
+// bad test case
+// new must select a constructor with the requested arity
+// expected compile error: E_ARITY_MISMATCH
+
+class Main () { 
+    int main() { 
+        A a; 
+        a = new A(); 
+        return 0; 
+    } 
+}
+
+class A ( ) [ 
+    A(int x) { ; } 
+] { }

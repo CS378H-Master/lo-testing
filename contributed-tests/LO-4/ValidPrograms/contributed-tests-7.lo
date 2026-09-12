@@ -1,0 +1,29 @@
+// good test case
+// Ternary over unequal-depth sibling classes types to their nearest common ancestor, not a branch type or a higher ancestor
+// main method return value: 9
+
+class Root () {}
+
+class Animal extends Root () [
+    Animal() { super(); }
+] {
+    int value() { return 9; }
+}
+
+class Canine extends Animal () [
+    Canine() { super(); }
+] {}
+
+class Feline extends Animal () [
+    Feline() { super(); }
+] {}
+
+class Bengal extends Feline () [
+    Bengal() { super(); }
+] {}
+
+class Main () {
+    int main() {
+        return ((true ? new Canine() : new Bengal())).value();
+    }
+}

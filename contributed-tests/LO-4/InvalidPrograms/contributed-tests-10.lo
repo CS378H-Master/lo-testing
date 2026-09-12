@@ -1,0 +1,27 @@
+// bad test case
+// A child-returning method cannot return a parent reference
+// expected compile error: E_RETURN_TYPE_MISMATCH
+
+class Main () { 
+    int main() { 
+        return 0; 
+    } 
+}
+
+class A ( ) [ 
+    A() { ; } 
+] { }
+
+class B extends A ( ) [ 
+    B() { super(); } 
+] { }
+
+class Use ( ) [ 
+    Use() { ; } 
+] { 
+    B make() { 
+        A a; 
+        a = new A(); 
+        return a; 
+    } 
+}

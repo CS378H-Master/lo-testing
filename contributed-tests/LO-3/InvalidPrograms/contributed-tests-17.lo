@@ -1,0 +1,24 @@
+// bad test case
+// Constructors are told apart by parameter count alone, never by parameter
+// types, so two one-parameter constructors collide even though one takes an
+// int and the other a String.
+// expected compile error: E_DUPLICATE_CONSTRUCTOR_ARITY
+
+class Token ( int code; String text; ) [
+    Token(int c) {
+        code = c;
+    }
+    Token(String t) {
+        text = t;
+    }
+] {
+    int getCode() { return code; }
+}
+
+class Main ( ) {
+    int main() {
+        Token t;
+        t = new Token(3);
+        return t.getCode();
+    }
+}

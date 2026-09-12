@@ -1,0 +1,32 @@
+// bad test case
+// Assignment compatibility follows the subtype relation in one direction only:
+// a Dog value may flow into an Animal variable, but an Animal-typed value may
+// not flow into a Dog variable without a cast, even when the object really is
+// a Dog.
+// expected compile error: E_ASSIGN_TYPE_MISMATCH
+
+class Animal ( ) [
+    Animal() {
+        ;
+    }
+] {
+    int legs() { return 4; }
+}
+
+class Dog extends Animal ( ) [
+    Dog() {
+        super();
+    }
+] {
+    int bark() { return 1; }
+}
+
+class Main ( ) {
+    int main() {
+        Animal a;
+        Dog d;
+        a = new Dog();
+        d = a;
+        return d.bark();
+    }
+}

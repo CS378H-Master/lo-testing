@@ -1,0 +1,16 @@
+// bad test case
+// The constructor section is optional, but once written it must hold at least
+// one declaration.
+// expected compile error: E_MALFORMED_CLASS_DECL
+
+class Point ( int x; int y; ) [ ] {
+    int getX() { return x; }
+}
+
+class Main ( ) {
+    int main() {
+        Point p;
+        p = new Point(1, 2);
+        return p.getX();
+    }
+}
