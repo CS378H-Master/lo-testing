@@ -1,7 +1,7 @@
 // bad test case
 // Call a method from null
-// expected compile error: E_NULL_LITERAL_RECEIVER
 // Author: Aaron Wollman (Summer 2021)
+// Note: SH, Fa26 -- student observed the current error code//  E_NULL_LITERAL_RECEIVER is wrong, and should be E_PARSE_PHASE_OTHER instead. For now, we should just remove the error code and let it remain a compile fail.
 
 class Main() {
     int main(){
