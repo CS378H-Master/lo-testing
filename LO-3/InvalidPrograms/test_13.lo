@@ -1,7 +1,7 @@
 // bad test case
 // cannot use reserved words as identifiers
-// expected compile error: E_RESERVED_KEYWORD_AS_IDENTIFIER
 // Author: Tyler Collins (Summer 2022)
+// Note: SH, Fa26 -- student observed the current error code//  E_RESERVED_KEYWORD_AS_IDENTIFIER is wrong, and should be E_PARSE_PHASE_OTHER instead. For now, we should just remove the error code and let it remain a compile fail.
 
 class Main() {
     int main(){
