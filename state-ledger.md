@@ -8,6 +8,8 @@ deadline: 2026-08-24
 cadence: deadline-bounded
 ---
 
+> **LEGACY — do not edit (2026-09-23).** This is a pre-cutover fork of the project ledger, last maintained 2026-05-30. The canonical ledger is `planning/state-ledger.md`. The one later entry here, the print-family destination selector (Locked 2026-09-12), was filed here by mistake and is restated in the canonical ledger under Locked decisions.
+
 # CS 378H — State Ledger
 
 🟡 Pre-semester course design (Fall 2026, semester starts Mon Aug 24); ~12 weeks remaining.
