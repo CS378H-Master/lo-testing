@@ -47,6 +47,10 @@ language design happens in `planning`.
 - `runbooks/` — CC execution specs (e.g. `ws4-corpus-migration.md`, the systematic
   migration task).
 - `LO-2/`, `LO-3/`, `LO-4/` — the test trees.
+- `grading-contract/` — the per-project grading contracts students fill in
+  (`p1-grading-contract.sh`, `p2-grading-contract.sh`).
+- `p2-spill-tests/` — Project 2's public spill tests (`instructor/`, `contributed/`), with a
+  README explaining their header line and how they are graded.
 
 The **language definition** these tests encode lives in `planning`, not here:
 `planning:lo-3-reference.md`, `planning:lo-4-reference.md`, `planning:liveoak-grammar.tex`

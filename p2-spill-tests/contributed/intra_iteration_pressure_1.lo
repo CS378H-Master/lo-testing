@@ -1,0 +1,46 @@
+// good test case
+// contributed register-pressure test: 24 values live at the same time inside the loop body (defined, then all summed), not carried across iterations
+// main method return value: 0
+// expected spills: less than 71 (plus configured slack)
+
+
+class Main () {
+    int main() {
+        int n, i, acc;
+        int v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24;
+        n = in.read_int();
+        i = 0;
+        acc = 0;
+        while ((i < n)) {
+            v1 = (i + 1);
+            v2 = (i + 2);
+            v3 = (i + 3);
+            v4 = (i + 4);
+            v5 = (i + 5);
+            v6 = (i + 6);
+            v7 = (i + 7);
+            v8 = (i + 8);
+            v9 = (i + 9);
+            v10 = (i + 10);
+            v11 = (i + 11);
+            v12 = (i + 12);
+            v13 = (i + 13);
+            v14 = (i + 14);
+            v15 = (i + 15);
+            v16 = (i + 16);
+            v17 = (i + 17);
+            v18 = (i + 18);
+            v19 = (i + 19);
+            v20 = (i + 20);
+            v21 = (i + 21);
+            v22 = (i + 22);
+            v23 = (i + 23);
+            v24 = (i + 24);
+            acc = ((((((((((((((((((((((((acc + v1) + v2) + v3) + v4) + v5) + v6) + v7) + v8) + v9) + v10) + v11) + v12) + v13) + v14) + v15) + v16) + v17) + v18) + v19) + v20) + v21) + v22) + v23) + v24);
+            i = (i + 1);
+        }
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}

@@ -1,0 +1,46 @@
+// good test case
+// contributed register-pressure test: 18 call results pending while later calls in the same expression run, plus ten locals live across the calls
+// main method return value: 0
+// expected spills: less than 199 (plus configured slack)
+
+
+class Main () {
+    int id(int x) {
+        return x;
+    }
+
+    int main() {
+        int n, i, acc, t;
+        int l0, l1, l2, l3, l4, l5, l6, l7, l8, l9;
+        n = in.read_int();
+        i = 0;
+        l0 = 1;
+        l1 = 2;
+        l2 = 3;
+        l3 = 4;
+        l4 = 5;
+        l5 = 6;
+        l6 = 7;
+        l7 = 8;
+        l8 = 9;
+        l9 = 10;
+        while ((i < n)) {
+            t = (this.id((i + 0)) + (this.id((i + 1)) + (this.id((i + 2)) + (this.id((i + 3)) + (this.id((i + 4)) + (this.id((i + 5)) + (this.id((i + 6)) + (this.id((i + 7)) + (this.id((i + 8)) + (this.id((i + 9)) + (this.id((i + 10)) + (this.id((i + 11)) + (this.id((i + 12)) + (this.id((i + 13)) + (this.id((i + 14)) + (this.id((i + 15)) + (this.id((i + 16)) + (this.id((i + 17)) + this.id((i + 18))))))))))))))))))));
+            l0 = (l0 + t);
+            l1 = (l1 + l0);
+            l2 = (l2 + l1);
+            l3 = (l3 + l2);
+            l4 = (l4 + l3);
+            l5 = (l5 + l4);
+            l6 = (l6 + l5);
+            l7 = (l7 + l6);
+            l8 = (l8 + l7);
+            l9 = (l9 + l8);
+            i = (i + 1);
+        }
+        acc = (((((((((l0 + l1) + l2) + l3) + l4) + l5) + l6) + l7) + l8) + l9);
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}
