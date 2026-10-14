@@ -1,0 +1,69 @@
+// good test case
+// contributed register-pressure test: 20 values live across an if/else join; the arm alternates each iteration
+// main method return value: 0
+// expected spills: less than 43 (plus configured slack)
+
+
+class Main () {
+    int main() {
+        int n, i, acc;
+        bool flag;
+        int v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19;
+        n = in.read_int();
+        i = 0;
+        flag = true;
+        v0 = 11;
+        v1 = 18;
+        v2 = 25;
+        v3 = 32;
+        v4 = 39;
+        v5 = 46;
+        v6 = 53;
+        v7 = 60;
+        v8 = 67;
+        v9 = 74;
+        v10 = 81;
+        v11 = 88;
+        v12 = 95;
+        v13 = 102;
+        v14 = 109;
+        v15 = 116;
+        v16 = 123;
+        v17 = 130;
+        v18 = 137;
+        v19 = 144;
+        while ((i < n)) {
+            if (flag) {
+                v0 = (v0 + v1);
+                v1 = (v0 - v1);
+            } else {
+                v0 = (v0 - v1);
+                v1 = (v0 + v1);
+            }
+            flag = (!flag);
+            v2 = (v2 + 2);
+            v3 = (v3 + 3);
+            v4 = (v4 + 4);
+            v5 = (v5 + 5);
+            v6 = (v6 + 6);
+            v7 = (v7 + 7);
+            v8 = (v8 + 8);
+            v9 = (v9 + 9);
+            v10 = (v10 + 10);
+            v11 = (v11 + 11);
+            v12 = (v12 + 12);
+            v13 = (v13 + 13);
+            v14 = (v14 + 14);
+            v15 = (v15 + 15);
+            v16 = (v16 + 16);
+            v17 = (v17 + 17);
+            v18 = (v18 + 18);
+            v19 = (v19 + 19);
+            i = (i + 1);
+        }
+        acc = (((((((((((((((((((v0 + v1) + v2) + v3) + v4) + v5) + v6) + v7) + v8) + v9) + v10) + v11) + v12) + v13) + v14) + v15) + v16) + v17) + v18) + v19);
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}

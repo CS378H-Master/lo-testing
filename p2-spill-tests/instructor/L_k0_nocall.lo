@@ -1,0 +1,20 @@
+// good test case
+// register pressure: 0 loop-carried ints, no call in the loop body
+// main method return value: 0
+// expected spills: less than 1 (plus configured slack)
+
+
+class Main () {
+    int main() {
+        int n, i, acc;
+        n = in.read_int();
+        i = 0;
+        while ((i < n)) {
+            i = (i + 1);
+        }
+        acc = i;
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}

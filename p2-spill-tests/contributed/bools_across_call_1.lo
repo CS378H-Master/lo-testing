@@ -1,0 +1,86 @@
+// good test case
+// contributed register-pressure test: 20 booleans live across a call, far more than the five callee-saved registers
+// main method return value: 0
+// expected spills: less than 47 (plus configured slack)
+
+
+class Main () {
+    int work(int a) {
+        return (a + 7);
+    }
+
+    int main() {
+        int n, i, acc;
+        bool b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19;
+        n = in.read_int();
+        i = 0;
+        acc = 0;
+        b0 = true;
+        b1 = false;
+        b2 = false;
+        b3 = true;
+        b4 = false;
+        b5 = false;
+        b6 = true;
+        b7 = false;
+        b8 = false;
+        b9 = true;
+        b10 = false;
+        b11 = false;
+        b12 = true;
+        b13 = false;
+        b14 = false;
+        b15 = true;
+        b16 = false;
+        b17 = false;
+        b18 = true;
+        b19 = false;
+        while ((i < n)) {
+            b0 = (!b0);
+            b1 = (!b1);
+            b2 = (!b2);
+            b3 = (!b3);
+            b4 = (!b4);
+            b5 = (!b5);
+            b6 = (!b6);
+            b7 = (!b7);
+            b8 = (!b8);
+            b9 = (!b9);
+            b10 = (!b10);
+            b11 = (!b11);
+            b12 = (!b12);
+            b13 = (!b13);
+            b14 = (!b14);
+            b15 = (!b15);
+            b16 = (!b16);
+            b17 = (!b17);
+            b18 = (!b18);
+            b19 = (!b19);
+            acc = (acc + this.work(i));
+            i = (i + 1);
+        }
+        acc = (acc + (b0 ? 1 : 0));
+        acc = (acc + (b1 ? 2 : 0));
+        acc = (acc + (b2 ? 3 : 0));
+        acc = (acc + (b3 ? 4 : 0));
+        acc = (acc + (b4 ? 5 : 0));
+        acc = (acc + (b5 ? 6 : 0));
+        acc = (acc + (b6 ? 7 : 0));
+        acc = (acc + (b7 ? 8 : 0));
+        acc = (acc + (b8 ? 9 : 0));
+        acc = (acc + (b9 ? 10 : 0));
+        acc = (acc + (b10 ? 11 : 0));
+        acc = (acc + (b11 ? 12 : 0));
+        acc = (acc + (b12 ? 13 : 0));
+        acc = (acc + (b13 ? 14 : 0));
+        acc = (acc + (b14 ? 15 : 0));
+        acc = (acc + (b15 ? 16 : 0));
+        acc = (acc + (b16 ? 17 : 0));
+        acc = (acc + (b17 ? 18 : 0));
+        acc = (acc + (b18 ? 19 : 0));
+        acc = (acc + (b19 ? 20 : 0));
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}

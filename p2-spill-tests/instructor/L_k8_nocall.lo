@@ -1,0 +1,37 @@
+// good test case
+// register pressure: 8 loop-carried ints, no call in the loop body
+// main method return value: 0
+// expected spills: less than 22 (plus configured slack)
+
+
+class Main () {
+    int main() {
+        int n, i, acc;
+        int v0, v1, v2, v3, v4, v5, v6, v7;
+        n = in.read_int();
+        i = 0;
+        v0 = 1;
+        v1 = 2;
+        v2 = 3;
+        v3 = 4;
+        v4 = 5;
+        v5 = 6;
+        v6 = 7;
+        v7 = 8;
+        while ((i < n)) {
+            v0 = (v0 + v1);
+            v1 = (v1 + v2);
+            v2 = (v2 + v3);
+            v3 = (v3 + v4);
+            v4 = (v4 + v5);
+            v5 = (v5 + v6);
+            v6 = (v6 + v7);
+            v7 = (v7 + v0);
+            i = (i + 1);
+        }
+        acc = (((((((v0 + v1) + v2) + v3) + v4) + v5) + v6) + v7);
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}
