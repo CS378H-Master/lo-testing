@@ -1,0 +1,37 @@
+// good test case
+// contributed register-pressure test: 15 values live at the same time inside the loop body, then consumed one by one by a single expression
+// main method return value: 0
+// expected spills: less than 46 (plus configured slack)
+
+
+class Main () {
+    int main() {
+        int n, i, acc;
+        int v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15;
+        n = in.read_int();
+        i = 0;
+        acc = 0;
+        while ((i < n)) {
+            v1 = (i + 1);
+            v2 = (i + 2);
+            v3 = (i + 3);
+            v4 = (i + 4);
+            v5 = (i + 5);
+            v6 = (i + 6);
+            v7 = (i + 7);
+            v8 = (i + 8);
+            v9 = (i + 9);
+            v10 = (i + 10);
+            v11 = (i + 11);
+            v12 = (i + 12);
+            v13 = (i + 13);
+            v14 = (i + 14);
+            v15 = (i + 15);
+            acc = (acc + ((((((((((((((v1 - (v2 * 2)) + (v3 * 3)) - (v4 * 4)) + (v5 * 5)) - (v6 * 6)) + (v7 * 7)) - (v8 * 8)) + (v9 * 9)) - (v10 * 10)) + (v11 * 11)) - (v12 * 12)) + (v13 * 13)) - (v14 * 14)) + (v15 * 15)));
+            i = (i + 1);
+        }
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}
