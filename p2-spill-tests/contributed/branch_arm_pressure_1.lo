@@ -1,0 +1,57 @@
+// good test case
+// contributed register-pressure test: the same nested-lifetime chain in one arm of an if/else, a one-statement other arm; the arm alternates each iteration, so values spilled in the heavy arm must be back in place at the join
+// main method return value: 0
+// expected spills: less than 24 (plus configured slack)
+
+
+class Main () {
+    int main() {
+        int n, i, acc;
+        bool flag;
+        int x, y, z;
+        int va, vb, vc, vd, ve, vf, vg, vh, vi, vj, vk, vl, vm, vn, vo, vp, vq, vr, vs, vt, vu, vv, vw;
+        n = in.read_int();
+        i = 0;
+        x = 0;
+        y = 1;
+        z = 1;
+        flag = true;
+        while ((i < n)) {
+            if (flag) {
+                z = x;
+            } else {
+                va = (i + z);
+                vb = (va + x);
+                vc = (vb + y);
+                vd = (vc + z);
+                ve = (vc + vd);
+                vf = (vd + ve);
+                vg = (vb + vf);
+                vh = (ve * vg);
+                vi = (vg + vh);
+                vj = (vh + vi);
+                vk = (vg + vj);
+                vl = (vf + vk);
+                vm = (ve + vl);
+                vn = (vd + vm);
+                vo = (vc + vn);
+                vp = (vb + vo);
+                vq = (va + vp);
+                vr = (vq - 2);
+                vs = (vr * 3);
+                vt = (vr + vs);
+                vu = (vt + x);
+                vv = (vu + y);
+                vw = (vv + z);
+                x = (((vt + vu) + vv) + vw);
+                z = (x - y);
+            }
+            flag = (!flag);
+            i = (i + 1);
+        }
+        acc = ((z + x) + y);
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}

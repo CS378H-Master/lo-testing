@@ -29,16 +29,17 @@
 # missing, fails or prints nothing, nothing else is graded and the submission
 # scores 0.
 #
-# Stage 1, WASM regression gate (0 points, ALL-OR-NOTHING): every Project-1
-# test, via lo-check / lo-compile / lo-wasmrun, exactly as in P1:
+# Stage 1, WASM regression (0 points per pass, -0.1 per failure): every
+# Project-1 test, via lo-check / lo-compile / lo-wasmrun, exactly as in P1:
 #
 #     $ lo-check   prog.lo                             # front-end only
 #     $ lo-compile prog.lo /tmp/artifacts/prog.wasm    # front-end, and if good,
 #                                                      # must emit .wasm at $2
 #     $ lo-wasmrun /tmp/artifacts/prog.wasm            # run it
 #
-#   One failure stops grading and the submission scores 0. A P2 that regresses
-#   P1 is not graded — fix the regression and resubmit.
+#   Keeping Project 1 working costs nothing; each Project-1 test that no longer
+#   passes takes 0.1 points off your score (your total never goes below 0).
+#   Stages 2 and 3 always run and count in full either way.
 #
 # Stage 2, native (0.25 points per test): every Project-1 test again. lo-check as
 # before, and for run tests:
@@ -156,7 +157,7 @@ lo-check() {
 # -----------------------------------------------------------------------------
 # Compile a program all the way to a linked WebAssembly module: run the front
 # end, generate code, and link against your runtime. UNCHANGED from P1: this is
-# what the regression gate runs.
+# what the WASM regression stage runs.
 #
 #   $1        : path to a .lo source file
 #   $2        : path where the finished .wasm MUST be written
