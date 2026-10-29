@@ -1,0 +1,108 @@
+// good test case
+// GC stress: thirty thousand objects of three related classes survive collections; instanceof must still read each moved object's class descriptor correctly
+// main method return value: 0
+// gc stress heap: 8388608
+
+class Animal ( ) [
+    Animal() { ; }
+] {
+    int kind() { return 0; }
+}
+
+class Dog extends Animal ( ) [
+    Dog() { super(); }
+] {
+    int kind() { return 1; }
+}
+
+class Cat extends Animal ( ) [
+    Cat() { super(); }
+] {
+    int kind() { return 2; }
+}
+
+class Node ( Animal a; Node next; ) [
+    Node(Animal an, Node n) { a = an; next = n; }
+] {
+    Animal get_a() { return a; }
+    Node get_next() { return next; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Node head;
+        Node cur;
+        Churn ch;
+        int i;
+        int n;
+        int dogs;
+        int cats;
+        int animals;
+        head = null;
+        i = 0;
+        while ( (i < 30000) ) {
+            if ( ((i % 3) = 0) ) {
+                head = new Node(new Animal(), head);
+            } else {
+                if ( ((i % 3) = 1) ) {
+                    head = new Node(new Dog(), head);
+                } else {
+                    head = new Node(new Cat(), head);
+                }
+            }
+            i = (i + 1);
+        }
+        ch = new Churn();
+        n = ch.run(2000000);
+        dogs = 0;
+        cats = 0;
+        animals = 0;
+        cur = head;
+        while ( (! (cur = null)) ) {
+            if ( (cur.get_a() instanceof Dog) ) {
+                dogs = (dogs + 1);
+            } else {
+                ;
+            }
+            if ( (cur.get_a() instanceof Cat) ) {
+                cats = (cats + 1);
+            } else {
+                ;
+            }
+            if ( (cur.get_a() instanceof Animal) ) {
+                animals = (animals + 1);
+            } else {
+                ;
+            }
+            cur = cur.get_next();
+        }
+        out.print_int(dogs);
+        out.println();
+        out.print_int(cats);
+        out.println();
+        out.print_int(animals);
+        out.println();
+        return 0;
+    }
+}

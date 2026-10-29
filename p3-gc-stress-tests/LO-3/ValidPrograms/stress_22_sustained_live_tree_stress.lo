@@ -1,0 +1,110 @@
+// good test case
+// GC stress: a binary tree of 65,535 nodes stays live for the whole run while each round allocates one hundred thousand garbage objects and swaps the children of one node; a structural checksum is printed every ten rounds and the number of rounds is read from input
+// main method return value: 0
+// gc stress heap: 12582912
+
+class Tree ( int key; Tree left; Tree right; ) [
+    Tree(int k, Tree l, Tree r) { key = k; left = l; right = r; }
+] {
+    int get_key() { return key; }
+    Tree get_left() { return left; }
+    Tree get_right() { return right; }
+    void swap() {
+        Tree t;
+        t = left;
+        left = right;
+        right = t;
+    }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Forest ( ) [
+    Forest() { ; }
+] {
+    Tree build(int depth, int key) {
+        if ( (depth = 0) ) {
+            return null;
+        } else {
+            return new Tree(key, this.build((depth - 1), (key * 2)), this.build((depth - 1), ((key * 2) + 1)));
+        }
+    }
+    int checksum(Tree t, int h) {
+        int acc;
+        acc = h;
+        if ( (t = null) ) {
+            return ((acc * 31) + 17);
+        } else {
+            acc = ((acc * 31) + t.get_key());
+            acc = this.checksum(t.get_left(), acc);
+            acc = this.checksum(t.get_right(), acc);
+            return acc;
+        }
+    }
+    int count(Tree t) {
+        if ( (t = null) ) {
+            return 0;
+        } else {
+            return ((1 + this.count(t.get_left())) + this.count(t.get_right()));
+        }
+    }
+    void rotate(Tree root, int round) {
+        Tree cur;
+        int steps;
+        cur = root;
+        steps = 0;
+        while ( (steps < (round % 14)) ) {
+            if ( (((round / (steps + 1)) % 2) = 0) ) {
+                cur = cur.get_left();
+            } else {
+                cur = cur.get_right();
+            }
+            steps = (steps + 1);
+        }
+        cur.swap();
+    }
+    int churn(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Forest f;
+        Tree root;
+        int rounds;
+        int r;
+        int n;
+        rounds = in.read_int();
+        f = new Forest();
+        root = f.build(16, 1);
+        out.print_int(f.count(root));
+        out.println();
+        r = 0;
+        while ( (r < rounds) ) {
+            n = f.churn(100000);
+            f.rotate(root, r);
+            if ( ((r % 10) = 9) ) {
+                out.print_int(f.checksum(root, 1));
+                out.println();
+            } else {
+                ;
+            }
+            r = (r + 1);
+        }
+        out.print_int(f.count(root));
+        out.println();
+        return 0;
+    }
+}

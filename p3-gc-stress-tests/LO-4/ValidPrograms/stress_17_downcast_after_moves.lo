@@ -1,0 +1,108 @@
+// good test case
+// GC stress: thirty thousand objects of three related classes survive collections; each is downcast to its runtime class and a subclass method is dispatched on it, so the cast check and the vtable must both read the moved object's descriptor correctly
+// main method return value: 0
+// gc stress heap: 8388608
+
+class Animal ( ) [
+    Animal() { ; }
+] {
+    int kind() { return 0; }
+}
+
+class Dog extends Animal ( ) [
+    Dog() { super(); }
+] {
+    int kind() { return 1; }
+    int bark() { return 7; }
+}
+
+class Cat extends Animal ( ) [
+    Cat() { super(); }
+] {
+    int kind() { return 2; }
+    int meow() { return 9; }
+}
+
+class Node ( Animal a; Node next; ) [
+    Node(Animal an, Node n) { a = an; next = n; }
+] {
+    Animal get_a() { return a; }
+    Node get_next() { return next; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Node head;
+        Node cur;
+        Churn ch;
+        Dog d;
+        Cat c;
+        Animal a;
+        int i;
+        int n;
+        int acc;
+        int hash;
+        head = null;
+        i = 0;
+        while ( (i < 30000) ) {
+            if ( ((i % 3) = 0) ) {
+                head = new Node(new Animal(), head);
+            } else {
+                if ( ((i % 3) = 1) ) {
+                    head = new Node(new Dog(), head);
+                } else {
+                    head = new Node(new Cat(), head);
+                }
+            }
+            i = (i + 1);
+        }
+        ch = new Churn();
+        n = ch.run(2000000);
+        acc = 0;
+        hash = 5;
+        cur = head;
+        while ( (! (cur = null)) ) {
+            a = cur.get_a();
+            if ( (a.kind() = 1) ) {
+                d = ((Dog) a);
+                acc = (acc + d.bark());
+            } else {
+                if ( (a.kind() = 2) ) {
+                    c = ((Cat) a);
+                    acc = (acc + c.meow());
+                } else {
+                    a = ((Animal) a);
+                    acc = (acc + a.kind());
+                }
+            }
+            hash = ((hash * 31) + a.kind());
+            cur = cur.get_next();
+        }
+        out.print_int(acc);
+        out.println();
+        out.print_int(hash);
+        out.println();
+        return 0;
+    }
+}

@@ -1,0 +1,60 @@
+// good test case
+// GC stress: a string field that is never assigned holds the runtime's immortal empty string, which lives outside the collected heap; after thousands of collections they must still compare equal to "" and concatenate correctly
+// main method return value: 0
+// gc stress heap: 65536
+
+class Holder ( String s; int n; ) [
+    Holder(int v) { n = v; }
+] {
+    String get_s() { return s; }
+    int get_n() { return n; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Holder h;
+        String lit;
+        Churn ch;
+        int n;
+        h = new Holder(9);
+        lit = "";
+        ch = new Churn();
+        n = ch.run(3000000);
+        out.print_bool((h.get_s() = ""));
+        out.println();
+        out.print_bool((lit = h.get_s()));
+        out.println();
+        out.print_bool((("" + h.get_s()) = ""));
+        out.println();
+        out.print_string((h.get_s() + "x"));
+        out.println();
+        out.print_bool(((~ h.get_s()) = ""));
+        out.println();
+        out.print_bool(((h.get_s() * 1000) = ""));
+        out.println();
+        out.print_int(h.get_n());
+        out.println();
+        return 0;
+    }
+}

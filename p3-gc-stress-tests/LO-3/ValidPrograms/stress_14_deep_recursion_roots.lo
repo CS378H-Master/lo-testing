@@ -1,0 +1,62 @@
+// good test case
+// GC stress: a recursion one thousand frames deep allocates one object per frame and holds it in a local while passing another as a formal; the deepest frame forces collections, and every frame then checks its own object on the way back up
+// main method return value: 0
+// gc stress heap: 262144
+
+class Node ( int id; ) [
+    Node(int i) { id = i; }
+] {
+    int get_id() { return id; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Rec ( ) [
+    Rec() { ; }
+] {
+    int churn(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return 0;
+    }
+    int descend(int depth, Node carried) {
+        Node mine;
+        int below;
+        mine = new Node(depth);
+        if ( (depth = 1000) ) {
+            below = this.churn(2000000);
+        } else {
+            below = this.descend((depth + 1), mine);
+        }
+        if ( (! (mine.get_id() = depth)) ) {
+            return (0 - 1000000);
+        } else {
+            ;
+        }
+        if ( (! (carried.get_id() = (depth - 1))) ) {
+            return (0 - 2000000);
+        } else {
+            ;
+        }
+        return (below + depth);
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Rec r;
+        r = new Rec();
+        out.print_int(r.descend(1, new Node(0)));
+        out.println();
+        return 0;
+    }
+}

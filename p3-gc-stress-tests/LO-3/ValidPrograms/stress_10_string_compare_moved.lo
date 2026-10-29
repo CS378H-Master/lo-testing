@@ -1,0 +1,88 @@
+// good test case
+// GC stress: two thousand distinct strings are built and kept while garbage forces collections; afterwards every neighbouring pair is compared with the three string comparison operators and the counts are printed
+// main method return value: 0
+// gc stress heap: 1048576
+
+class StrNode ( String s; StrNode next; ) [
+    StrNode(String str, StrNode nx) { s = str; next = nx; }
+] {
+    String get_s() { return s; }
+    StrNode get_next() { return next; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    String make(int i) {
+        return ((("a" * (i % 37)) + ("b" * (i % 11))) + ("c" * (i % 5)));
+    }
+    int main() {
+        StrNode head;
+        StrNode cur;
+        Churn ch;
+        int i;
+        int n;
+        int less;
+        int greater;
+        int equal;
+        head = null;
+        ch = new Churn();
+        i = 0;
+        while ( (i < 2000) ) {
+            head = new StrNode(this.make(i), head);
+            n = ch.run(500);
+            i = (i + 1);
+        }
+        n = ch.run(3000000);
+        less = 0;
+        greater = 0;
+        equal = 0;
+        cur = head;
+        while ( (! ((cur.get_next()) = null)) ) {
+            if ( (cur.get_s() < (cur.get_next()).get_s()) ) {
+                less = (less + 1);
+            } else {
+                ;
+            }
+            if ( (cur.get_s() > (cur.get_next()).get_s()) ) {
+                greater = (greater + 1);
+            } else {
+                ;
+            }
+            if ( (cur.get_s() = (cur.get_next()).get_s()) ) {
+                equal = (equal + 1);
+            } else {
+                ;
+            }
+            cur = cur.get_next();
+        }
+        out.print_int(less);
+        out.println();
+        out.print_int(greater);
+        out.println();
+        out.print_int(equal);
+        out.println();
+        out.print_bool((head.get_s() = this.make(1999)));
+        out.println();
+        return 0;
+    }
+}

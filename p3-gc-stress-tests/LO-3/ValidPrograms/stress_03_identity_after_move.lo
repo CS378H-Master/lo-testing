@@ -1,0 +1,62 @@
+// good test case
+// GC stress: two references to one object and a third reference to an equal-looking object keep their identities across collections; a write through one alias is visible through the other
+// main method return value: 0
+// gc stress heap: 65536
+
+class Cell ( int value; ) [
+    Cell(int v) { value = v; }
+] {
+    int get() { return value; }
+    void set(int v) { value = v; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Cell a;
+        Cell b;
+        Cell c;
+        Churn ch;
+        int n;
+        a = new Cell(5);
+        b = a;
+        c = new Cell(5);
+        ch = new Churn();
+        n = ch.run(2000000);
+        out.print_bool((a = b));
+        out.println();
+        out.print_bool((a = c));
+        out.println();
+        out.print_bool((c.get() = a.get()));
+        out.println();
+        a.set(42);
+        n = ch.run(1000000);
+        out.print_int(b.get());
+        out.println();
+        out.print_int(c.get());
+        out.println();
+        out.print_bool((a = b));
+        out.println();
+        return 0;
+    }
+}

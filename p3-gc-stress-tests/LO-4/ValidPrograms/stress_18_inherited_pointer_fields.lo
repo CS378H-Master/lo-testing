@@ -1,0 +1,81 @@
+// good test case
+// GC stress: ten thousand subclass objects reach their children only through a pointer field declared in the parent class; the subclass descriptor must list the inherited pointer so the collector scans and updates it
+// main method return value: 0
+// gc stress heap: 4194304
+
+class Leaf ( int v; ) [
+    Leaf(int x) { v = x; }
+] {
+    int get() { return v; }
+}
+
+class Base ( Leaf ref; ) [
+    Base(Leaf l) { ref = l; }
+] {
+    Leaf get_ref() { return ref; }
+}
+
+class Derived extends Base ( int tag; Derived next; ) [
+    Derived(Leaf l, int t, Derived n) { super(l); tag = t; next = n; }
+] {
+    int get_tag() { return tag; }
+    Derived get_next() { return next; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Derived head;
+        Derived cur;
+        Churn ch;
+        int i;
+        int n;
+        int sum;
+        int mismatches;
+        head = null;
+        i = 0;
+        while ( (i < 10000) ) {
+            head = new Derived(new Leaf(i), (i * 2), head);
+            i = (i + 1);
+        }
+        ch = new Churn();
+        n = ch.run(2000000);
+        sum = 0;
+        mismatches = 0;
+        cur = head;
+        while ( (! (cur = null)) ) {
+            sum = (sum + (cur.get_ref()).get());
+            if ( (! (((cur.get_ref()).get() * 2) = cur.get_tag())) ) {
+                mismatches = (mismatches + 1);
+            } else {
+                ;
+            }
+            cur = cur.get_next();
+        }
+        out.print_int(sum);
+        out.println();
+        out.print_int(mismatches);
+        out.println();
+        return 0;
+    }
+}

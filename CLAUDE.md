@@ -48,9 +48,14 @@ language design happens in `planning`.
   migration task).
 - `LO-2/`, `LO-3/`, `LO-4/` — the test trees.
 - `grading-contract/` — the per-project grading contracts students fill in
-  (`p1-grading-contract.sh`, `p2-grading-contract.sh`).
+  (`p1-grading-contract.sh`, `p2-grading-contract.sh`, `p3-grading-contract.sh`).
 - `p2-spill-tests/` — Project 2's public spill tests (`instructor/`, `contributed/`), with a
   README explaining their header line and how they are graded.
+- `p3-gc-stress-tests/` — Project 3's public GC stress tests, LO programs under
+  `LO-{3,4}/ValidPrograms/` with one extra header line (`// gc stress heap: <bytes>`) and a
+  README explaining how they are graded.
+- `p3-abi-harness/` — Project 3's public ABI harness: freestanding C programs (not LO) that link
+  against the student's runtime archive, the shared `lo_abi.h`, `run-harness.sh`, and a README.
 
 The **language definition** these tests encode lives in `planning`, not here:
 `planning:lo-3-reference.md`, `planning:lo-4-reference.md`, `planning:liveoak-grammar.tex`

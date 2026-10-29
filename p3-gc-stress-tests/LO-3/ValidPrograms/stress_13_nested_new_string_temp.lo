@@ -1,0 +1,57 @@
+// good test case
+// GC stress: the result of a string operation is only a temporary when a later operand allocates enough to force collections; the temporary string must be a root so it survives and moves with the collection
+// main method return value: 0
+// gc stress heap: 65536
+
+class C ( ) [
+    C() { ; }
+] {
+}
+
+class S ( String s; C c; ) [
+    S(String str, C cc) { s = str; c = cc; }
+] {
+    String get_s() { return s; }
+}
+
+class Main ( ) {
+    C churn() {
+        int i;
+        C last;
+        i = 0;
+        last = null;
+        while ( (i < 1000000) ) {
+            last = new C();
+            i = (i + 1);
+        }
+        return last;
+    }
+    String churn_str() {
+        C c;
+        c = this.churn();
+        return "z";
+    }
+    int main() {
+        S obj;
+        String s;
+        String t;
+        String u;
+        String v;
+        s = "abc";
+        obj = new S(("x" + s), this.churn());
+        out.print_string(obj.get_s());
+        out.println();
+        t = ((s + "-") + this.churn_str());
+        out.print_string(t);
+        out.println();
+        u = (("q" * 3) + this.churn_str());
+        out.print_string(u);
+        out.println();
+        v = ((~ s) + this.churn_str());
+        out.print_string(v);
+        out.println();
+        out.print_bool((("abc" + "z") = (s + this.churn_str())));
+        out.println();
+        return 0;
+    }
+}

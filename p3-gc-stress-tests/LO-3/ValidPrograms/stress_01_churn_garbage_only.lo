@@ -1,0 +1,30 @@
+// good test case
+// GC stress: three million short-lived objects and no survivors; a collector that reclaims nothing exhausts the heap before the final counter is printed
+// main method return value: 0
+// gc stress heap: 65536
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Main ( ) {
+    int main() {
+        int i;
+        int acc;
+        Pair p;
+        i = 0;
+        acc = 0;
+        while ( (i < 3000000) ) {
+            p = new Pair(i, 1);
+            acc = (acc + p.sum());
+            i = (i + 1);
+        }
+        out.print_int(i);
+        out.println();
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}

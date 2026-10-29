@@ -1,0 +1,27 @@
+// good test case
+// GC stress: a string grows one character at a time to 20,000 characters, producing about 200 MB of garbage; the result must equal the same string built by repetition, so concatenation must read both operands correctly even when allocating the result triggers a collection
+// main method return value: 0
+// gc stress heap: 262144
+
+class Main ( ) {
+    int main() {
+        String s;
+        String expected;
+        int i;
+        s = "";
+        i = 0;
+        while ( (i < 10000) ) {
+            s = (s + "a");
+            s = (s + "b");
+            i = (i + 1);
+        }
+        expected = ("ab" * 10000);
+        out.print_bool((s = expected));
+        out.println();
+        out.print_bool((s < (expected + "a")));
+        out.println();
+        out.print_bool(((~ (~ s)) = expected));
+        out.println();
+        return 0;
+    }
+}

@@ -1,0 +1,59 @@
+// good test case
+// GC stress: the result of an inner `new` is still only a temporary when a later actual argument allocates enough to force collections; the temporary must be a root so the object it names survives and moves with it
+// main method return value: 0
+// gc stress heap: 65536
+
+class B ( int value; ) [
+    B(int v) { value = v; }
+] {
+    int get() { return value; }
+}
+
+class C ( ) [
+    C() { ; }
+] {
+}
+
+class A ( B b; C c; ) [
+    A(B bb, C cc) { b = bb; c = cc; }
+] {
+    B get_b() { return b; }
+}
+
+class Main ( ) {
+    C churn() {
+        int i;
+        C last;
+        i = 0;
+        last = null;
+        while ( (i < 1000000) ) {
+            last = new C();
+            i = (i + 1);
+        }
+        return last;
+    }
+    int take(B first, C second) {
+        return first.get();
+    }
+    int main() {
+        A a;
+        int i;
+        int acc;
+        acc = 0;
+        i = 0;
+        while ( (i < 5) ) {
+            a = new A(new B((7 + i)), this.churn());
+            acc = (acc + (a.get_b()).get());
+            i = (i + 1);
+        }
+        out.print_int(acc);
+        out.println();
+        acc = this.take(new B(100), this.churn());
+        out.print_int(acc);
+        out.println();
+        acc = (new B(3)).get();
+        out.print_int(acc);
+        out.println();
+        return 0;
+    }
+}
