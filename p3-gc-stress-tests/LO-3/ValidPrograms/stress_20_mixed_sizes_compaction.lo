@@ -1,0 +1,79 @@
+// good test case
+// GC stress: small objects are interleaved with strings of every byte length from 2 to 8192, and every seventh string is kept; after collections each kept string must still equal a freshly built copy, so object sizes must be read from each object rather than assumed
+// main method return value: 0
+// gc stress heap: 12582912
+
+class StrNode ( String s; int k; StrNode next; ) [
+    StrNode(String str, int n, StrNode nx) { s = str; k = n; next = nx; }
+] {
+    String get_s() { return s; }
+    int get_k() { return k; }
+    StrNode get_next() { return next; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        StrNode kept;
+        StrNode cur;
+        Churn ch;
+        String s;
+        int k;
+        int n;
+        int total;
+        int verified;
+        kept = null;
+        ch = new Churn();
+        k = 1;
+        while ( (k < 4097) ) {
+            s = ("é" * k);
+            n = ch.run(20);
+            if ( ((k % 7) = 0) ) {
+                kept = new StrNode(s, k, kept);
+            } else {
+                ;
+            }
+            k = (k + 1);
+        }
+        n = ch.run(2000000);
+        total = 0;
+        verified = 0;
+        cur = kept;
+        while ( (! (cur = null)) ) {
+            total = (total + 1);
+            if ( (cur.get_s() = ("é" * cur.get_k())) ) {
+                verified = (verified + 1);
+            } else {
+                ;
+            }
+            cur = cur.get_next();
+        }
+        out.print_int(total);
+        out.println();
+        out.print_int(verified);
+        out.println();
+        out.print_bool(((~ kept.get_s()) = kept.get_s()));
+        out.println();
+        return 0;
+    }
+}

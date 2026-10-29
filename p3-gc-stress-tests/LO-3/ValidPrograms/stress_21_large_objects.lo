@@ -1,0 +1,70 @@
+// good test case
+// GC stress: half-mebibyte strings are built and discarded while small objects churn, two are kept and concatenated into a mebibyte string that must equal an independently built copy; large objects must be copied whole and a large request must succeed once a collection has made room
+// main method return value: 0
+// gc stress heap: 16777216
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        String kept1;
+        String kept2;
+        String t;
+        String combined;
+        String expected;
+        Churn ch;
+        int i;
+        int n;
+        ch = new Churn();
+        kept1 = "";
+        kept2 = "";
+        i = 0;
+        while ( (i < 12) ) {
+            if ( (i = 3) ) {
+                t = ("0123456789abcdef" * 32768);
+                kept1 = t;
+            } else {
+                if ( (i = 8) ) {
+                    t = ("fedcba9876543210" * 32768);
+                    kept2 = t;
+                } else {
+                    t = ("0123456789abcdef" * 32768);
+                }
+            }
+            n = ch.run(100000);
+            i = (i + 1);
+        }
+        n = ch.run(2000000);
+        combined = (kept1 + kept2);
+        n = ch.run(2000000);
+        expected = (("0123456789abcdef" * 32768) + ("fedcba9876543210" * 32768));
+        out.print_bool((combined = expected));
+        out.println();
+        out.print_bool((combined < (expected + "x")));
+        out.println();
+        out.print_bool((kept1 = ("0123456789abcdef" * 32768)));
+        out.println();
+        out.print_bool((kept1 = kept2));
+        out.println();
+        return 0;
+    }
+}

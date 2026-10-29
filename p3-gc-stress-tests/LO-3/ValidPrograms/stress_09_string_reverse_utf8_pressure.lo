@@ -1,0 +1,61 @@
+// good test case
+// GC stress: a string of two thousand multi-byte UTF-8 words is reversed, survives heavy collection, and is reversed back; the codepoint-aware reversal must round-trip and must equal the reversed word repeated
+// main method return value: 0
+// gc stress heap: 524288
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        String s;
+        String r;
+        String back;
+        Churn ch;
+        int n;
+        int i;
+        ch = new Churn();
+        s = ("café" * 2000);
+        n = ch.run(1000000);
+        r = (~ s);
+        n = ch.run(1000000);
+        back = (~ r);
+        n = ch.run(1000000);
+        out.print_bool((back = s));
+        out.println();
+        out.print_bool((r = ("éfac" * 2000)));
+        out.println();
+        out.print_bool((r = s));
+        out.println();
+        r = back;
+        i = 0;
+        while ( (i < 200) ) {
+            r = (~ r);
+            n = ch.run(5000);
+            i = (i + 1);
+        }
+        out.print_bool((r = s));
+        out.println();
+        out.print_string((~ "añb"));
+        out.println();
+        return 0;
+    }
+}

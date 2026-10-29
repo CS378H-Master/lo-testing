@@ -1,0 +1,88 @@
+// good test case
+// GC stress: a short literal is repeated to lengths 1 to 3000 with garbage allocated between repetitions; every hundredth result is kept and later compared with the same string built by concatenation
+// main method return value: 0
+// gc stress heap: 524288
+
+class StrNode ( String s; int k; StrNode next; ) [
+    StrNode(String str, int n, StrNode nx) { s = str; k = n; next = nx; }
+] {
+    String get_s() { return s; }
+    int get_k() { return k; }
+    StrNode get_next() { return next; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    String build(int k) {
+        String r;
+        int i;
+        r = "";
+        i = 0;
+        while ( (i < k) ) {
+            r = (r + "xy");
+            i = (i + 1);
+        }
+        return r;
+    }
+    int main() {
+        StrNode kept;
+        StrNode cur;
+        Churn ch;
+        String r;
+        int k;
+        int n;
+        int verified;
+        int total;
+        kept = null;
+        ch = new Churn();
+        k = 1;
+        while ( (k < 3001) ) {
+            r = ("xy" * k);
+            n = ch.run(300);
+            if ( ((k % 100) = 0) ) {
+                kept = new StrNode(r, k, kept);
+            } else {
+                ;
+            }
+            k = (k + 1);
+        }
+        n = ch.run(2000000);
+        verified = 0;
+        total = 0;
+        cur = kept;
+        while ( (! (cur = null)) ) {
+            total = (total + 1);
+            if ( (cur.get_s() = this.build(cur.get_k())) ) {
+                verified = (verified + 1);
+            } else {
+                ;
+            }
+            cur = cur.get_next();
+        }
+        out.print_int(total);
+        out.println();
+        out.print_int(verified);
+        out.println();
+        return 0;
+    }
+}

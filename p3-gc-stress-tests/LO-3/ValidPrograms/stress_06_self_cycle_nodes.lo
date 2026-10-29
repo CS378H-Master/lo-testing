@@ -1,0 +1,74 @@
+// good test case
+// GC stress: a node that points to itself and two nodes that point at each other stay reachable across collections; their self and mutual references must still resolve to the moved objects
+// main method return value: 0
+// gc stress heap: 65536
+
+class Node ( int id; Node next; ) [
+    Node(int i) { id = i; next = null; }
+] {
+    int get_id() { return id; }
+    Node get_next() { return next; }
+    void set_next(Node n) { next = n; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Node solo;
+        Node x;
+        Node y;
+        Node cur;
+        Churn ch;
+        int i;
+        int hash;
+        solo = new Node(1);
+        solo.set_next(solo);
+        x = new Node(2);
+        y = new Node(3);
+        x.set_next(y);
+        y.set_next(x);
+        ch = new Churn();
+        i = ch.run(3000000);
+        out.print_bool((solo.get_next() = solo));
+        out.println();
+        out.print_bool((x.get_next() = y));
+        out.println();
+        out.print_bool((y.get_next() = x));
+        out.println();
+        out.print_bool(((x.get_next()).get_next() = x));
+        out.println();
+        hash = 0;
+        cur = x;
+        i = 0;
+        while ( (i < 1001) ) {
+            hash = ((hash * 3) + cur.get_id());
+            cur = cur.get_next();
+            i = (i + 1);
+        }
+        out.print_int(hash);
+        out.println();
+        out.print_int(cur.get_id());
+        out.println();
+        return 0;
+    }
+}

@@ -1,0 +1,100 @@
+// good test case
+// GC stress: one method keeps sixteen pointer locals, four pointer formals and its receiver live across collections; every one of those roots must be scanned and updated
+// main method return value: 0
+// gc stress heap: 65536
+
+class Node ( int id; ) [
+    Node(int i) { id = i; }
+] {
+    int get_id() { return id; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Work ( int tag; ) [
+    Work(int t) { tag = t; }
+] {
+    int churn(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return 0;
+    }
+    int run(Node p1, Node p2, Node p3, Node p4) {
+        Node a;
+        Node b;
+        Node c;
+        Node d;
+        Node e;
+        Node f;
+        Node g;
+        Node h;
+        Node i;
+        Node j;
+        Node k;
+        Node l;
+        Node m;
+        Node n;
+        Node o;
+        Node p;
+        int z;
+        int hash;
+        a = new Node(1);
+        b = new Node(2);
+        c = new Node(3);
+        d = new Node(4);
+        e = new Node(5);
+        f = new Node(6);
+        g = new Node(7);
+        h = new Node(8);
+        i = new Node(9);
+        j = new Node(10);
+        k = new Node(11);
+        l = new Node(12);
+        m = new Node(13);
+        n = new Node(14);
+        o = new Node(15);
+        p = new Node(16);
+        z = this.churn(3000000);
+        hash = tag;
+        hash = ((hash * 31) + p1.get_id());
+        hash = ((hash * 31) + p2.get_id());
+        hash = ((hash * 31) + p3.get_id());
+        hash = ((hash * 31) + p4.get_id());
+        hash = ((hash * 31) + a.get_id());
+        hash = ((hash * 31) + b.get_id());
+        hash = ((hash * 31) + c.get_id());
+        hash = ((hash * 31) + d.get_id());
+        hash = ((hash * 31) + e.get_id());
+        hash = ((hash * 31) + f.get_id());
+        hash = ((hash * 31) + g.get_id());
+        hash = ((hash * 31) + h.get_id());
+        hash = ((hash * 31) + i.get_id());
+        hash = ((hash * 31) + j.get_id());
+        hash = ((hash * 31) + k.get_id());
+        hash = ((hash * 31) + l.get_id());
+        hash = ((hash * 31) + m.get_id());
+        hash = ((hash * 31) + n.get_id());
+        hash = ((hash * 31) + o.get_id());
+        hash = ((hash * 31) + p.get_id());
+        return hash;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Work w;
+        w = new Work(99);
+        out.print_int(w.run(new Node(101), new Node(102), new Node(103), new Node(104)));
+        out.println();
+        return 0;
+    }
+}

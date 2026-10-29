@@ -23,8 +23,10 @@ lo-testing/
 │   ├── ValidPrograms/
 │   ├── InvalidPrograms/
 │   └── RuntimeAbortPrograms/
-├── grading-contract/               # p1-/p2-grading-contract.sh: how the grader drives your compiler
-└── p2-spill-tests/                 # Project 2 spill tests (register allocation); see its README
+├── grading-contract/               # p1-/p2-/p3-grading-contract.sh: how the grader drives your compiler
+├── p2-spill-tests/                 # Project 2 spill tests (register allocation); see its README
+├── p3-gc-stress-tests/             # Project 3 GC stress tests (LO programs); see its README
+└── p3-abi-harness/                 # Project 3 runtime tests in C, linked against your runtime; see its README
 ```
 
 LO-2 has two categories (Valid / Invalid) because LO-2 has no runtime mechanisms that can abort by design. LO-3 and LO-4 carry the third category for runtime aborts — `lo_cast_check` failure (LO-4), null-receiver method call, malformed `read_int` input, and similar.

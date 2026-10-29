@@ -1,0 +1,75 @@
+// good test case
+// GC stress: one thousand parents share a single child object; after heavy collection every parent still refers to the same child and increments through any parent are visible through all
+// main method return value: 0
+// gc stress heap: 262144
+
+class Child ( int counter; ) [
+    Child() { counter = 0; }
+] {
+    void bump() { counter = (counter + 1); }
+    int get() { return counter; }
+}
+
+class Parent ( Child child; Parent next; ) [
+    Parent(Child c, Parent n) { child = c; next = n; }
+] {
+    Child get_child() { return child; }
+    Parent get_next() { return next; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Child shared;
+        Parent head;
+        Parent cur;
+        Churn ch;
+        int i;
+        int n;
+        bool all_same;
+        shared = new Child();
+        head = null;
+        i = 0;
+        while ( (i < 1000) ) {
+            head = new Parent(shared, head);
+            i = (i + 1);
+        }
+        ch = new Churn();
+        n = ch.run(2000000);
+        all_same = true;
+        cur = head;
+        while ( (! (cur = null)) ) {
+            (cur.get_child()).bump();
+            all_same = (all_same & (cur.get_child() = shared));
+            cur = cur.get_next();
+        }
+        n = ch.run(1000000);
+        out.print_int(shared.get());
+        out.println();
+        out.print_int((head.get_child()).get());
+        out.println();
+        out.print_bool(all_same);
+        out.println();
+        return 0;
+    }
+}

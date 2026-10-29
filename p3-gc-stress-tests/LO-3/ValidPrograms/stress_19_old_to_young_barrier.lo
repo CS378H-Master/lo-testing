@@ -1,0 +1,64 @@
+// good test case
+// GC stress: a holder object that outlives many collections is repeatedly pointed at a freshly allocated object, and garbage is allocated before the fresh object is read back through the holder; the store into the old object is the only path to the new one
+// main method return value: 0
+// gc stress heap: 65536
+
+class Payload ( int v; ) [
+    Payload(int x) { v = x; }
+] {
+    int get() { return v; }
+}
+
+class Holder ( Payload ref; ) [
+    Holder() { ref = null; }
+] {
+    void set(Payload p) { ref = p; }
+    Payload get() { return ref; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Holder holder;
+        Churn ch;
+        int i;
+        int n;
+        int acc;
+        holder = new Holder();
+        ch = new Churn();
+        n = ch.run(600000);
+        acc = 0;
+        i = 0;
+        while ( (i < 5000) ) {
+            holder.set(new Payload(i));
+            n = ch.run(2000);
+            acc = (acc + (holder.get()).get());
+            i = (i + 1);
+        }
+        out.print_int(acc);
+        out.println();
+        out.print_int((holder.get()).get());
+        out.println();
+        return 0;
+    }
+}

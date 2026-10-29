@@ -1,0 +1,113 @@
+// good test case
+// GC stress: a ring of one thousand nodes linked in both directions survives repeated collections; walking it forward and backward after the churn yields the same checksums as before
+// main method return value: 0
+// gc stress heap: 262144
+
+class Node ( int id; Node next; Node prev; ) [
+    Node(int i) { id = i; next = null; prev = null; }
+] {
+    int get_id() { return id; }
+    Node get_next() { return next; }
+    Node get_prev() { return prev; }
+    void set_next(Node n) { next = n; }
+    void set_prev(Node p) { prev = p; }
+}
+
+class Pair ( int a; int b; ) [
+    Pair(int x, int y) { a = x; b = y; }
+] {
+    int sum() { return (a + b); }
+}
+
+class Churn ( ) [
+    Churn() { ; }
+] {
+    int run(int n) {
+        int i;
+        Pair p;
+        i = 0;
+        while ( (i < n) ) {
+            p = new Pair(i, i);
+            i = (i + 1);
+        }
+        return i;
+    }
+}
+
+class Walker ( ) [
+    Walker() { ; }
+] {
+    int forward(Node start, int steps) {
+        Node cur;
+        int i;
+        int hash;
+        cur = start;
+        i = 0;
+        hash = 1;
+        while ( (i < steps) ) {
+            hash = ((hash * 31) + cur.get_id());
+            cur = cur.get_next();
+            i = (i + 1);
+        }
+        return hash;
+    }
+    int backward(Node start, int steps) {
+        Node cur;
+        int i;
+        int hash;
+        cur = start;
+        i = 0;
+        hash = 1;
+        while ( (i < steps) ) {
+            hash = ((hash * 31) + cur.get_id());
+            cur = cur.get_prev();
+            i = (i + 1);
+        }
+        return hash;
+    }
+}
+
+class Main ( ) {
+    int main() {
+        Node first;
+        Node last;
+        Node n;
+        Walker w;
+        Churn ch;
+        int i;
+        int f1;
+        int b1;
+        int f2;
+        int b2;
+        first = new Node(0);
+        last = first;
+        i = 1;
+        while ( (i < 1000) ) {
+            n = new Node(i);
+            last.set_next(n);
+            n.set_prev(last);
+            last = n;
+            i = (i + 1);
+        }
+        last.set_next(first);
+        first.set_prev(last);
+        w = new Walker();
+        f1 = w.forward(first, 10000);
+        b1 = w.backward(first, 10000);
+        ch = new Churn();
+        i = ch.run(3000000);
+        f2 = w.forward(first, 10000);
+        b2 = w.backward(first, 10000);
+        out.print_int(f1);
+        out.println();
+        out.print_int(b1);
+        out.println();
+        out.print_bool((f1 = f2));
+        out.println();
+        out.print_bool((b1 = b2));
+        out.println();
+        out.print_bool(((first.get_prev()).get_next() = first));
+        out.println();
+        return 0;
+    }
+}
